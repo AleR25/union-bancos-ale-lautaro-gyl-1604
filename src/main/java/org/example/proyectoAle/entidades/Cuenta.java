@@ -24,6 +24,18 @@ public class Cuenta {
         this.tipoDeCuenta = tipoDeCuenta;
     }
 
+    public void realizarTransferencia(double monto, Cuenta cuentaDestinatario) {
+
+        if (monto < this.saldo ){
+            this.saldo = this.saldo - monto;
+            cuentaDestinatario.sumarSaldo(monto);
+
+            System.out.println("La transferencia se realizo correctamente");
+        }else{
+            System.out.println("El destinatario o el monto a transferir son incorrectos");
+        }
+    }
+
     public void depositar(double monto)
     {
         if (monto > 0 && activa == true)
@@ -83,5 +95,13 @@ public class Cuenta {
     private void sumarSaldo(double monto)
     {
         this.saldo += monto;
+    }
+
+    public int getIdCuenta() {
+        return idCuenta;
+    }
+
+    public double getSaldo() {
+        return saldo;
     }
 }
