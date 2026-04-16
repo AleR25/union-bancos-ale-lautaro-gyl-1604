@@ -4,7 +4,7 @@ import org.example.proyectoLautaro.Entity.Usuarios.Cliente;
 
 import java.util.ArrayList;
 
-public interface CapacidadUserCliente extends CapacidadUsers{
+public interface CapacidadUserCliente extends CapacidadUsers {
 
     void hacerTransferecia(String cbu, ArrayList<Cliente>clientes,float monto);
 

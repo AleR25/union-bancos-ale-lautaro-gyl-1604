@@ -1,6 +1,5 @@
 package org.example.proyectoLautaro.Entity;
 
-import org.example.Entity.Usuarios.*;
 import org.example.proyectoLautaro.Entity.Usuarios.Cliente;
 import org.example.proyectoLautaro.Entity.Usuarios.Usuarios;
 
