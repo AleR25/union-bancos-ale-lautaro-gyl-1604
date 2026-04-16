@@ -1,6 +1,8 @@
 package org.example.proyectoAle.entidades;
 
-public class Cuenta {
+import org.example.proyectoAle.interf.ComponenteFinanciero;
+
+public class Cuenta implements ComponenteFinanciero {
     private int contador = 1;
 
     private int idCuenta;
@@ -101,7 +103,8 @@ public class Cuenta {
         return idCuenta;
     }
 
+    @Override
     public double getSaldo() {
-        return saldo;
+        return this.saldo;
     }
 }
