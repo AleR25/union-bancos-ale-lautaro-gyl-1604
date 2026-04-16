@@ -1,7 +1,7 @@
-package org.example.usuarios;
+package org.example.proyectoAle.usuarios;
 
-import org.example.entidades.Solicitud;
-import org.example.entidades.Usuario;
+import org.example.proyectoAle.entidades.Solicitud;
+import org.example.proyectoAle.entidades.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.example.entidades;
+package org.example.proyectoAle.entidades;
 
 public class Usuario {
     private int idUsuario;

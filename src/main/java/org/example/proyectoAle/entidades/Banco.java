@@ -1,7 +1,6 @@
-package org.example.entidades;
+package org.example.proyectoAle.entidades;
 
-import org.example.usuarios.Administrador;
-import org.example.usuarios.Cliente;
+import org.example.proyectoAle.usuarios.Administrador;
 
 import java.util.ArrayList;
 import java.util.List;

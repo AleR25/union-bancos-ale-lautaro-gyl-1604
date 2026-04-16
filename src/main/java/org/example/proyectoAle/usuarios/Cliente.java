@@ -1,8 +1,6 @@
-package org.example.usuarios;
+package org.example.proyectoAle.usuarios;
 
-import org.example.entidades.Cuenta;
-import org.example.entidades.Solicitud;
-import org.example.entidades.Usuario;
+import org.example.proyectoAle.entidades.Usuario;
 
 public class Cliente extends Usuario {
     private static int contador = 1;

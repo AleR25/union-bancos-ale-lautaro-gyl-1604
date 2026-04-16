@@ -1,4 +1,4 @@
-package org.example.entidades;
+package org.example.proyectoAle.entidades;
 
 public class Cuenta {
     private int contador = 1;

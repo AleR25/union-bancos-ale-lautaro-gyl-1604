@@ -1,4 +1,4 @@
-package org.example.entidades;
+package org.example.proyectoAle.entidades;
 
 public enum TipoCuenta {
     CAJA_DE_AHORRO,
