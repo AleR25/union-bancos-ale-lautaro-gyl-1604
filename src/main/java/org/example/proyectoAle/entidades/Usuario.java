@@ -21,6 +21,10 @@ public class Usuario {
         return password;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public boolean isAsignado() {
         return asignado;
     }

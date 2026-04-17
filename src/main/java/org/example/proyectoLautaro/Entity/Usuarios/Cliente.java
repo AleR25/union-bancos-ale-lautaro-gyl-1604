@@ -20,6 +20,10 @@ public class Cliente extends Usuarios implements CapacidadUserCliente, Capacidad
                 u.getSucursal(), u.getCuentaBanco());
     }
 
+    public Cliente() {
+    }
+
+
     //    public Cliente(int id, String nombre, String apellido, int dni, String direccion, Rol rol, String username, String password) {
 //        super(id, nombre, apellido, dni, direccion, rol, username, password);
 //    }
@@ -41,24 +45,62 @@ public class Cliente extends Usuarios implements CapacidadUserCliente, Capacidad
 
     @Override
     public void extraer(float monto) {
-        if (monto<this.getCuentaBanco().getSaldo()){
-            float extraccion= this.getCuentaBanco().getSaldo()-monto;
-            this.getCuentaBanco().setSaldo(extraccion);
+        if (!this.getCuentaBanco().getEstado()) {
+            System.out.println("No se puede realizar la extraccion porque la cuenta no esta abierta");
+            return;
+        }
+        if (monto > 0 && monto <= this.getCuentaBanco().getSaldo()) {
+            float nuevoSaldo = this.getCuentaBanco().getSaldo() - monto;
+            this.getCuentaBanco().setSaldo(nuevoSaldo);
+            System.out.println("Extracción exitosa. Nuevo saldo: " + nuevoSaldo);
+        } else {
+            System.out.println("Fondos insuficientes o monto inválido.");
         }
     }
 
     @Override
     public void depositar(float monto) {
-        if (monto!=0){
-            float carga=this.getCuentaBanco().getSaldo()+monto;
+        if (!this.getCuentaBanco().getEstado()) {
+            System.out.println("No se puede realizar el deposito porque la cuenta no esta abierta");
+            return; // Salimos del método inmediatamente
+        }
+
+        if (monto > 0) {
+            float carga = this.getCuentaBanco().getSaldo() + monto;
             this.getCuentaBanco().setSaldo(carga);
+            System.out.println("Depósito exitoso. Nuevo saldo: " + carga);
+        } else {
+            System.out.println("El monto debe ser mayor a cero.");
         }
 
     }
 
     @Override
     public void transferir(float monto,String cbu) {
+        if (!this.getCuentaBanco().getEstado()) {
+            System.out.println("No se puede realizar la transferencia porque la cuenta no esta abierta");
+            return;
+        }
+        if (monto > 0 && monto <= this.getCuentaBanco().getSaldo()) {
+            Usuarios destino = null;
 
+            for (Usuarios c : this.getSucursal().getClientesSucursal()) {
+                if (c.getCuentaBanco().getCbu().equals(cbu)) {
+                    destino = c;
+                    break;
+                }
+            }
+
+            if (destino != null) {
+                this.extraer(monto); // Quitamos dinero de esta cuenta
+                destino.depositar(monto); // Sumamos dinero a la otra
+                System.out.println("Transferencia enviada a: " + destino.getNombre());
+            } else {
+                System.out.println("No se encontró el CBU de destino.");
+            }
+        } else {
+            System.out.println("Saldo insuficiente para transferir.");
+        }
     }
 
     @Override
