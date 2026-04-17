@@ -1,12 +1,13 @@
 package org.example.proyectoAle.entidades;
 
+import org.example.proyectoAle.interf.ComponenteFinanciero;
 import org.example.proyectoAle.usuarios.Administrador;
 import org.example.proyectoAle.usuarios.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sucursal
+public class Sucursal implements ComponenteFinanciero
 {
     private int idSucursal;
     private String direccion;
@@ -73,6 +74,11 @@ public class Sucursal
                 .filter(u -> u.autenticar(username, password))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public double getSaldo() {
+        return cuentas.stream().mapToDouble(ComponenteFinanciero::getSaldo).sum();
     }
 
     @Override
