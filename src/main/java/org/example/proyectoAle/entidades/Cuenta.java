@@ -1,6 +1,8 @@
 package org.example.proyectoAle.entidades;
 
-public class Cuenta {
+import org.example.proyectoAle.interf.ComponenteFinanciero;
+
+public class Cuenta implements ComponenteFinanciero {
     private int contador = 1;
 
     private int idCuenta;
@@ -22,6 +24,18 @@ public class Cuenta {
         this.saldo = 0;
         this.activa = true;
         this.tipoDeCuenta = tipoDeCuenta;
+    }
+
+    public void realizarTransferencia(double monto, Cuenta cuentaDestinatario) {
+
+        if (monto < this.saldo ){
+            this.saldo = this.saldo - monto;
+            cuentaDestinatario.sumarSaldo(monto);
+
+            System.out.println("La transferencia se realizo correctamente");
+        }else{
+            System.out.println("El destinatario o el monto a transferir son incorrectos");
+        }
     }
 
     public void depositar(double monto)
@@ -83,5 +97,14 @@ public class Cuenta {
     private void sumarSaldo(double monto)
     {
         this.saldo += monto;
+    }
+
+    public int getIdCuenta() {
+        return idCuenta;
+    }
+
+    @Override
+    public double getSaldo() {
+        return this.saldo;
     }
 }

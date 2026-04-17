@@ -16,8 +16,6 @@ public class Banco {
         this.sucursales = sucursales;
     }
 
-
-
     public int getId() {
         return id;
     }

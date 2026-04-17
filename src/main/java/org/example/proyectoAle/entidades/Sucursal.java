@@ -1,18 +1,20 @@
 package org.example.proyectoAle.entidades;
 
+import org.example.proyectoAle.interf.ComponenteFinanciero;
 import org.example.proyectoAle.usuarios.Administrador;
 import org.example.proyectoAle.usuarios.Cliente;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sucursal
+public class Sucursal implements ComponenteFinanciero
 {
     private int idSucursal;
     private String direccion;
     private Administrador administrador;
     private List<Cuenta> cuentas;
     private List<Cliente> clientes;
+    private List<Solicitud> solicitudes;
 
     private static int contador = 1;
 
@@ -22,6 +24,11 @@ public class Sucursal
         this.administrador = administrador;
         this.cuentas = new ArrayList<>();
         this.clientes = new ArrayList<>();
+        this.solicitudes = new ArrayList<>();
+    }
+
+    public List<Solicitud> getSolicitudes() {
+        return solicitudes;
     }
 
     public Administrador getAdministrador() {
@@ -41,21 +48,24 @@ public class Sucursal
         clientes.add(new Cliente(nombre, false, usuario, pass));
     }
 
-    public void crearCuenta(Cuenta cuenta) //posible tipo cuenta
+    public void agregarCuenta(Cuenta cuenta) //posible tipo cuenta
     {
         cuentas.add(cuenta);
         System.out.println("Cuenta creada correctamente"); //ejecutar un if
     }
 
-    public void solicitudCrearCuenta(int idCliente)
+    public void solicitudCrearCuenta(int idCliente, TipoCuenta tipoCuenta)
     {
-        Solicitud solicitud = new Solicitud(buscarCliente(idCliente));
-        administrador.agregarSolicitud(solicitud);
+        Solicitud solicitud = new Solicitud(buscarCliente(idCliente), tipoCuenta);
+        solicitudes.add(solicitud);
     }
 
-    public void buscarCuenta(int idCuenta)
+    public Cuenta buscarCuenta(int idCuenta)
     {
-
+        return cuentas.stream()
+                .filter(c -> c.getIdCuenta() == idCuenta)
+                .findFirst()
+                .orElse(null);
     }
 
     //metodo para buscar cliente en List, no funciona fuera de Sucursal
@@ -73,6 +83,11 @@ public class Sucursal
                 .filter(u -> u.autenticar(username, password))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public double getSaldo() {
+        return cuentas.stream().mapToDouble(ComponenteFinanciero::getSaldo).sum();
     }
 
     @Override
