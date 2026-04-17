@@ -39,11 +39,6 @@ public class Sucursal {
         } else {
             this.clientesSucursal = new ArrayList<>();
         }
-//        if (s.getUsuariosAdmin() != null) {
-//            this.usuariosAdmin = new ArrayList<>(s.usuariosAdmin);
-//        } else {
-//            this.usuariosAdmin = new ArrayList<>();
-//        }
 
     }
     public Sucursal() {
