@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner teclado = new Scanner(System.in); //int
-        Scanner teclado2 = new Scanner(System.in);//String
+        Scanner teclado = new Scanner(System.in);
 
         Sucursal sucursalSeleccionada = null;
 
@@ -19,8 +18,7 @@ public class Main {
         financier.contratarAdministrador("Pedro", "pedro123", "HolaMundo123");
 
         financier.crearSucursal("Av cordoba", financier.getAdministradores().get(0));
-        financier.crearSucursal("Av corrientes", financier.getAdministradores().get(0));
-
+        financier.crearSucursal("Av corrientes", financier.getAdministradores().get(1));
 
 
         System.out.println(financier);
