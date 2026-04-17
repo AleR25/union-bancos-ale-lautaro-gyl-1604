@@ -1,17 +1,28 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.example.proyectoAle.entidades.Banco;
+import org.example.proyectoAle.entidades.Sucursal;
+
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner teclado = new Scanner(System.in); //int
+        Scanner teclado2 = new Scanner(System.in);//String
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Sucursal sucursalSeleccionada = null;
+
+        Banco financier = new Banco("Financier");
+        Banco galitcia = new Banco("Galitcia");
+
+        financier.contratarAdministrador("Juan", "juan123", "Holamundo123");
+        financier.contratarAdministrador("Pedro", "pedro123", "HolaMundo123");
+
+        financier.crearSucursal("Av cordoba", financier.getAdministradores().get(0));
+        financier.crearSucursal("Av corrientes", financier.getAdministradores().get(0));
+
+
+
+        System.out.println(financier);
     }
 }
