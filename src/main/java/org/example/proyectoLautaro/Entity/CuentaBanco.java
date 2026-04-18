@@ -3,21 +3,46 @@ package org.example.proyectoLautaro.Entity;
 import org.example.proyectoLautaro.Entity.Enum.TipoCuenta;
 import org.example.proyectoLautaro.Entity.Usuarios.Cliente;
 import org.example.proyectoLautaro.Interface.CapacidadCuentaBanco;
+import org.example.proyectoLautaro.Entity.Banco;
+
+import java.util.ArrayList;
 
 public class CuentaBanco implements CapacidadCuentaBanco {
     private int id;
     private String cbu;
     private TipoCuenta tipoCuenta;
-
     private float saldo;
     private Banco bancoPadre;
+    private Boolean estado;
 
-    public CuentaBanco(int id, String cbu, TipoCuenta tipoCuenta, float saldo, Banco bancoPadre) {
+    public CuentaBanco(int id, String cbu, TipoCuenta tipoCuenta, float saldo, Banco bancoPadre, Boolean estado) {
         this.id = id;
         this.cbu = cbu;
         this.tipoCuenta = tipoCuenta;
-        this.saldo = 0;
+        this.saldo = saldo;
         this.bancoPadre = bancoPadre;
+        this.estado = estado;
+    }
+
+
+    public CuentaBanco() {
+    }
+
+    public CuentaBanco(CuentaBanco cb) {
+        this.id = cb.id;
+        this.cbu = cb.getCbu();
+        this.tipoCuenta=cb.getTipoCuenta();
+        this.saldo=cb.getSaldo();
+        this.bancoPadre=cb.getBancoPadre();
+        this.estado=cb.getEstado();
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public int getId() {

@@ -1,9 +1,21 @@
 package org.example.proyectoLautaro.Interface;
 
 import org.example.proyectoLautaro.Entity.CuentaBanco;
+import org.example.proyectoLautaro.Entity.Sucursal;
 import org.example.proyectoLautaro.Entity.Usuarios.Usuarios;
 
-public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,CapacidadUserBalances,CapacidadUsers{
+import java.util.ArrayList;
+
+public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,CapacidadUserBalances,CapacidadUsers,CapacidadUserAdmin,CapacidadLogin{
+    @Override
+    Usuarios buscarClientePorId(int id);
+
+    @Override
+    Usuarios buscarClientePorCbu(String cbu);
+
+    @Override
+    Usuarios iniciarSesion(ArrayList<Usuarios> listaUsers, String username, String password);
+
     void verUsuarios();
     Usuarios crearUsuarios();
     @Override
@@ -11,8 +23,9 @@ public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,Ca
         return 0;
     }
 
+    Sucursal crearSucursal();
     @Override
-    default float hacerBalancesSucursales() {
+    default float hacerBalancesSucursal() {
         return 0;
     }
 
@@ -20,6 +33,16 @@ public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,Ca
     default void darDeBajaCuenta(int idCuenta) {
 
     }
+
+    void buscarSucursalPorId(int idSucursal);
+    @Override
+    void datosPorUser(int id);
+
+    @Override
+    void depositarSueldo(int idUser, float monto);
+
+    @Override
+    void verClientes();
 
     @Override
     default CuentaBanco crearCuenta() {
@@ -31,4 +54,27 @@ public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,Ca
 
     }
 
+    @Override
+    void asignarCuenta(int idUser, int idCuenta);
+
+    @Override
+    void verMisDatos();
+
+    @Override
+    void crearCliente();
+
+    @Override
+    void darBajaCuenta(int id);
+
+    @Override
+    void crearGCuentaBancaria();
+
+    @Override
+    void crearGClientes();
+
+    @Override
+    void crearGBalances();
+
+    @Override
+    void cerrarSesion();
 }

@@ -14,6 +14,7 @@ public class Sucursal implements ComponenteFinanciero
     private Administrador administrador;
     private List<Cuenta> cuentas;
     private List<Cliente> clientes;
+    private List<Solicitud> solicitudes;
 
     private static int contador = 1;
 
@@ -23,6 +24,11 @@ public class Sucursal implements ComponenteFinanciero
         this.administrador = administrador;
         this.cuentas = new ArrayList<>();
         this.clientes = new ArrayList<>();
+        this.solicitudes = new ArrayList<>();
+    }
+
+    public List<Solicitud> getSolicitudes() {
+        return solicitudes;
     }
 
     public Administrador getAdministrador() {
@@ -42,16 +48,16 @@ public class Sucursal implements ComponenteFinanciero
         clientes.add(new Cliente(nombre, false, usuario, pass));
     }
 
-    public void crearCuenta(Cuenta cuenta) //posible tipo cuenta
+    public void agregarCuenta(Cuenta cuenta) //posible tipo cuenta
     {
         cuentas.add(cuenta);
         System.out.println("Cuenta creada correctamente"); //ejecutar un if
     }
 
-    public void solicitudCrearCuenta(int idCliente)
+    public void solicitudCrearCuenta(int idCliente, TipoCuenta tipoCuenta)
     {
-        Solicitud solicitud = new Solicitud(buscarCliente(idCliente));
-        administrador.agregarSolicitud(solicitud);
+        Solicitud solicitud = new Solicitud(buscarCliente(idCliente), tipoCuenta);
+        solicitudes.add(solicitud);
     }
 
     public Cuenta buscarCuenta(int idCuenta)

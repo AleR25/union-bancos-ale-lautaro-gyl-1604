@@ -35,7 +35,6 @@ public class Banco implements ComponenteFinanciero
         return administradores;
     }
 
-    //una vez el administrador pase a administrar una sucursal asignado cambia a true
     public void contratarAdministrador(String nombre, String usuario, String pass)
     {
         administradores.add(new Administrador(nombre,false, usuario, pass));
@@ -43,7 +42,7 @@ public class Banco implements ComponenteFinanciero
 
     public void crearSucursal(String direccion, Administrador administrador)
     {
-        if(administrador.isAsignado() == false)
+        if(!administrador.isAsignado())
         {
             sucursales.add(new Sucursal(direccion, administrador));
             administrador.setAsignado(true);
