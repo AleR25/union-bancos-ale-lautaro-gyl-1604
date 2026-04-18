@@ -80,14 +80,31 @@ public class MainAle
 
         //CLIENTE - RETIRAR DINERO - RESPUESTA NEGATIVA
         System.out.println("EL MONTO A RETIRAR EXCEDE SU SALDO ACTUAL");
-        System.out.println("VUELVA A INTENTAR UN MONTO MENOR O PRESIONE 0 PARA SALIR");
+        System.out.println("VOLVIENDO AL MENU CLIENTE");
 
         //CLIENTE - DEPOSITAR
         System.out.println("NOMBRE DEL BANCO + SUCURSAL");
         System.out.println("CLIENTE + NOMBRE DEL CLIENTE?");
         System.out.println("DEPOSITAR");
+        System.out.println("EL SALDO EN SU CUENTA ACTUALMENTE ES DE: . . .");
+        System.out.println("VOLVIENDO AL MENU CLIENTE");
 
-        //CLIENTE - TRANSFERENCIA
+        //CLIENTE - TRANSFERENCIA INTERNA
+        System.out.println("NOMBRE DEL BANCO + SUCURSAL");
+        System.out.println("CLIENTE + NOMBRE DEL CLIENTE?");
+        System.out.println("TRANSFERIR");
+        System.out.println("INGRESE EL MONTO A TRANSFERIR");
+        System.out.println("INGRESE EL ID DE LA PERSONA A QUIEN DESEA TRANSFERIR");
+        // ACA ESTARIA REALIZANDO LAS DIFERENTES VALIDACIONES
+
+        //CLIENTE - TRANSFERENCIA EXTERNA
+        System.out.println("NOMBRE DEL BANCO + SUCURSAL");
+        System.out.println("CLIENTE + NOMBRE DEL CLIENTE?");
+        System.out.println("TRANSFERIR");
+        System.out.println("INGRESE EL MONTO A TRANSFERIR");
+        System.out.println("INGRESE EL NUMERO DE SUCURSAL A TRANSFERIR");//SE SUPONE QUE EL BANCO YA ESTARIA PRESELECCIONADO
+        System.out.println("INGRESE EL ID DE LA PERSONA A QUIEN DESEA TRANSFERIR");
+        // ACA ESTARIA REALIZANDO LAS DIFERENTES VALIDACIONES
 
         //QUIERO SER CLIENTE
         System.out.println("NOMBRE DEL BANCO + SUCURSAL");
