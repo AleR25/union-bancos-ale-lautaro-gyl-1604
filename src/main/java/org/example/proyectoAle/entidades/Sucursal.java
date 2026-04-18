@@ -54,9 +54,12 @@ public class Sucursal implements ComponenteFinanciero
         administrador.agregarSolicitud(solicitud);
     }
 
-    public void buscarCuenta(int idCuenta)
+    public Cuenta buscarCuenta(int idCuenta)
     {
-
+        return cuentas.stream()
+                .filter(c -> c.getIdCuenta() == idCuenta)
+                .findFirst()
+                .orElse(null);
     }
 
     //metodo para buscar cliente en List, no funciona fuera de Sucursal

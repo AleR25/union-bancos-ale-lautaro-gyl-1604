@@ -1,4 +1,4 @@
-package org.example;
+package org.example.principal;
 
 import org.example.proyectoAle.entidades.Banco;
 import org.example.proyectoAle.entidades.Sucursal;
@@ -22,5 +22,8 @@ public class Main {
         financier.crearSucursal("Av corrientes", financier.getAdministradores().get(0));
 
         System.out.println(financier);
+
+
+
     }
 }
