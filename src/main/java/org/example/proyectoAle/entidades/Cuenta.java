@@ -29,7 +29,7 @@ public class Cuenta implements ComponenteFinanciero {
     public void realizarTransferencia(double monto, Cuenta cuentaDestinatario) {
 
         if (monto < this.saldo ){
-            this.saldo = this.saldo - monto;
+            this.saldo -= monto;
             cuentaDestinatario.sumarSaldo(monto);
 
             System.out.println("La transferencia se realizo correctamente");
