@@ -1,5 +1,6 @@
 package org.example.principal;
 
+import org.example.menu.BancoController;
 import org.example.proyectoAle.entidades.Banco;
 import org.example.proyectoAle.entidades.Sucursal;
 
@@ -12,8 +13,8 @@ public class Main {
 
         Sucursal sucursalSeleccionada = null;
 
-        Banco financier = new Banco("Financier");
-        Banco galitcia = new Banco("Galitcia");
+        org.example.proyectoAle.entidades.Banco financier = new org.example.proyectoAle.entidades.Banco("Financier");
+        org.example.proyectoLautaro.Entity.Banco galicia = new org.example.proyectoLautaro.Entity.Banco(1, "galicia", "corrientes123", );
 
         financier.contratarAdministrador("Juan", "juan123", "Holamundo123");
         financier.contratarAdministrador("Pedro", "pedro123", "HolaMundo123");
@@ -22,6 +23,8 @@ public class Main {
         financier.crearSucursal("Av corrientes", financier.getAdministradores().get(0));
 
         System.out.println(financier);
+
+        BancoController controladorMenu = new BancoController(financier, galicia);
 
 
 

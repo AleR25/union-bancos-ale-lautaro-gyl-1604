@@ -1,12 +1,24 @@
 package org.example.menu;
+import org.example.proyectoAle.entidades.Banco;
 
 import java.util.Scanner;
 
 public class BancoController
 {
+    org.example.proyectoAle.entidades.Banco bancoA;
+    org.example.proyectoLautaro.Entity.Banco bancoB;
+    SucursalControler sucursal;
 
-    public void iniciar(Scanner teclado) {
-        int opcion;
+    public BancoController(Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB) {
+        this.bancoA = bancoA;
+        this.bancoB = bancoB;
+        this.sucursal = new SucursalControler();
+    }
+
+    Scanner teclado;
+    int opcion;
+
+    public void iniciar(int eleccionBanco) {
 
         do {
             System.out.println("SELECIONAR BANCO");
@@ -19,6 +31,8 @@ public class BancoController
             switch (opcion)
             {
                 case 1:
+                    System.out.println("BANCO " + bancoA.);
+                    sucursal.iniciarMenuASucursal(opcion);
                     break;
                 case 2:
                     break;
