@@ -497,4 +497,9 @@ public class AdminBancario  extends Usuarios implements CapacidadAdminBancario {
         System.out.println("Gestor de Balances creado exitosamente.");
     }
 
+    @Override
+    public void cerrarSesion() {
+
+    }
+
 }

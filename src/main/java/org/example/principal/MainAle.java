@@ -203,8 +203,8 @@ public class MainAle
 
         bancoGalicia.hacerBalanceCuentas();
 
-        BancoController controladorMenu = new BancoController(financier, galicia);
+
 
     }
-    }
+    
 }
