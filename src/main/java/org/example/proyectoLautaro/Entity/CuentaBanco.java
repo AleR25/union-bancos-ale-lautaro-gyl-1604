@@ -11,13 +11,15 @@ public class CuentaBanco implements CapacidadCuentaBanco {
 
     private float saldo;
     private Banco bancoPadre;
+    private boolean estado;
 
-    public CuentaBanco(int id, String cbu, TipoCuenta tipoCuenta, float saldo, Banco bancoPadre) {
+    public CuentaBanco(int id, String cbu, TipoCuenta tipoCuenta, float saldo, Banco bancoPadre, boolean estado {
         this.id = id;
         this.cbu = cbu;
         this.tipoCuenta = tipoCuenta;
         this.saldo = 0;
         this.bancoPadre = bancoPadre;
+        this.estado = estado;
     }
 
     public int getId() {
