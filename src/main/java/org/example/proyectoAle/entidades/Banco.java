@@ -27,6 +27,10 @@ public class Banco implements ComponenteFinanciero
         this.administradores = new ArrayList<>();
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
     public List<Sucursal> getSucursales() {
         return sucursales;
     }
@@ -60,10 +64,17 @@ public class Banco implements ComponenteFinanciero
         sucursales.removeIf(c -> c.getIdSucursal() == idSucursal);
     }
 
-    public Optional<Sucursal> seleccionarSucursal(int idBuscado) {
+    /*public Optional<Sucursal> seleccionarSucursal(int idBuscado) {
         return sucursales.stream()
                 .filter(s -> s.getIdSucursal() == idBuscado)
                 .findFirst();
+    }*/
+
+    public Sucursal buscarSucursalPorId(int idBuscado) {
+        return this.sucursales.stream()
+                .filter(s -> s.getIdSucursal() == (idBuscado))
+                .findFirst()
+                .orElse(null); // Retorna null si no la encuentra
     }
 
     @Override

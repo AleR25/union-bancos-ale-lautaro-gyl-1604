@@ -9,16 +9,16 @@ public class BancoController
     org.example.proyectoLautaro.Entity.Banco bancoB;
     SucursalControler sucursal;
 
-    public BancoController(Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB) {
+    public BancoController(org.example.proyectoAle.entidades.Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB) {
         this.bancoA = bancoA;
         this.bancoB = bancoB;
         this.sucursal = new SucursalControler();
     }
 
-    Scanner teclado;
+    Scanner teclado =new Scanner(System.in);
     int opcion;
 
-    public void iniciar(int eleccionBanco) {
+    public void iniciar() {
 
         do {
             System.out.println("SELECIONAR BANCO");
@@ -31,10 +31,14 @@ public class BancoController
             switch (opcion)
             {
                 case 1:
-                    System.out.println("BANCO " + bancoA.);
-                    sucursal.iniciarMenuASucursal(opcion);
+                    System.out.println("BANCO " + bancoA.getNombre());
+                    sucursal.iniciarMenuASucursal(bancoA);
                     break;
                 case 2:
+                    System.out.println("BANCO " + bancoB.getNombreBanco());
+                    break;
+                case 0:
+                    System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");
                     break;
                 default:
                     System.out.println("OPCION EQUIVOCADA");
@@ -42,4 +46,5 @@ public class BancoController
 
         } while (opcion != 0);
     }
+
 }

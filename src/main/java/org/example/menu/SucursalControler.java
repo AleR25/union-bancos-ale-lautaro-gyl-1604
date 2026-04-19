@@ -1,34 +1,35 @@
 package org.example.menu;
 
+import org.example.proyectoAle.entidades.Banco;
+import org.example.proyectoAle.entidades.Sucursal;
+
+import java.util.Scanner;
+
 public class SucursalControler
 {
-    org.example.proyectoAle.entidades.Banco bancoA;
-    org.example.proyectoLautaro.Entity.Banco bancoB;
+    Sucursal sucursal;
+    Scanner teclado = new Scanner(System.in);
+    int opcion;
 
-    public void iniciarMenuASucursal(int teclado) {
-        int opcion;
-
+    public void iniciarMenuASucursal(org.example.proyectoAle.entidades.Banco bancoA)
+    {
         do {
-            System.out.println("NOMBRE DEL BANCO");
-            System.out.println("ELEGIR UNA OPCION");
-            System.out.println("1. ELEGIR SUCURSAL");
-            System.out.println("2. VOLVER A SELECCION DE BANCO");
-            System.out.println("0. SALIR");
-
+            System.out.println("INGRESE EL NUMERO DE SUCURSAL");
             opcion = teclado.nextInt();
 
-            switch (opcion)
+            sucursal = bancoA.buscarSucursalPorId(opcion);
+
+            if (sucursal == null)
             {
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 0:
-                    break;
-                default:
-                    System.out.println("OPCION EQUIVOCADA");
+                System.out.println("SUCURSAL INEXISTENTE INTENTE NUEVAMENTE O INGRESE 0 PARA SALIR");
+            }
+            else
+            {
+                System.out.println("BANCO FINANCIER, SUCURSAL " + sucursal.getIdSucursal());
+                UsuarioController usuarioController = new UsuarioController(bancoA);
+                usuarioController.iniciarMenuUsuario(sucursal);
             }
 
-        } while (opcion != 0);
+        } while (sucursal == null && opcion != 0);
     }
 }

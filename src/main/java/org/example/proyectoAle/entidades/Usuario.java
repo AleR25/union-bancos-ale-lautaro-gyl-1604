@@ -17,8 +17,8 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNombre() {
+        return nombre;
     }
 
     public boolean isAsignado() {
