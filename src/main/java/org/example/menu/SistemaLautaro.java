@@ -1,4 +1,4 @@
-package org.example.principal;
+package org.example.menu;
 
 import org.example.proyectoLautaro.Entity.Banco;
 import org.example.proyectoLautaro.Entity.CuentaBanco;
@@ -10,20 +10,35 @@ import org.example.proyectoLautaro.Entity.Usuarios.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainLautaro
+public class SistemaLautaro
 {
-    public static void main(String[] args) {
+    private ArrayList<Usuarios> usuarios = new ArrayList<>();
+    private ArrayList<CuentaBanco> cuentas = new ArrayList<>();
+    private ArrayList<Sucursal> sucursalesGalicia = new ArrayList<>();
+    private Banco bancoGalicia;
 
-        ArrayList<Usuarios> usuarios = new ArrayList<>();
-        ArrayList<CuentaBanco> cuentas = new ArrayList<>();
+    public SistemaLautaro(Banco bancoB) {
+        this.bancoGalicia = bancoB;
+                //new Banco(1, "Galicia", "Direccion 123", sucursalesGalicia);
+    }
 
-        ArrayList<Sucursal> sucursalesIcbc = new ArrayList<>();
-        ArrayList<Sucursal> sucursalesGalicia = new ArrayList<>();
+    public SistemaLautaro()
+    {
 
-        Banco bancoGalicia = new Banco(1, "Galicia", "Direccion 123", sucursalesGalicia);
-        Banco bancoIcbc = new Banco(2, "ICBC", "Direccion 234", sucursalesIcbc);
+    }
 
-        Sucursal sucursal1 = new Sucursal("Sucursal Urquiza", 1, "Larralde 231", bancoGalicia, usuarios);
+    public CuentaBanco buscarCuentaPorId(int id) {
+        return cuentas.stream()
+                .filter(c -> c.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
+    Sucursal sucursal1;
+
+    public void inicializarVariables()
+    {
+        sucursal1 = new Sucursal("Sucursal Urquiza", 1, "Larralde 231", bancoGalicia, usuarios);
         sucursalesGalicia.add(sucursal1);
 
         CuentaBanco cuentaBanco1 = new CuentaBanco(1, "CBU1", TipoCuenta.SUELDO, 0, bancoGalicia,false);
@@ -33,13 +48,6 @@ public class MainLautaro
         CuentaBanco cuentaBanco5 = new CuentaBanco(5, "CBU5", TipoCuenta.SUELDO, 0, bancoGalicia,false);
         CuentaBanco cuentaBanco6 = new CuentaBanco(6, "CBU6", TipoCuenta.SUELDO, 0, bancoGalicia,false);
 
-        cuentas.add(cuentaBanco1);
-        cuentas.add(cuentaBanco2);
-        cuentas.add(cuentaBanco3);
-        cuentas.add(cuentaBanco4);
-        cuentas.add(cuentaBanco5);
-        cuentas.add(cuentaBanco6);
-
         Admin admin1 = new Admin(1, "Enzo", "Fernandez", 4522233, "Larralde 3421", Rol.ADMIN, "admin1", "pass3", bancoGalicia, sucursal1, cuentaBanco2);
         AdminBancario adminGalicia = new AdminBancario(2, "Lautaro ", "Fernandez", 45236660, "Valdenegro 3430", Rol.ADMIN_BANCARIO, "adminG", "passG", bancoGalicia, sucursal1, cuentaBanco4);
         Cliente cliente1 = new Cliente(3, "Nicolas", "Jardel", 235552, "San bernardo 123", Rol.CLIENTE, "Cuser", "Cpass", bancoGalicia, sucursal1, cuentaBanco1);
@@ -47,19 +55,19 @@ public class MainLautaro
         GestorBalances gestorBalances=new GestorBalances(5,"Juan pablo","Conti",2334112,"Direccio generica 462", Rol.G_BALANCES,"GBuser","GBpass",bancoGalicia,sucursal1,cuentaBanco5);
         GestorCuentasBancarias gestorCuentasBancarias=new GestorCuentasBancarias(6,"Dariel","Castillo",72157,"Triunvirato 582",Rol.G_CUENTAS,"GCBuser","GCBpass",bancoGalicia,sucursal1,cuentaBanco6);
 
-        usuarios.add(cliente1);
-        usuarios.add(gestorClientes);
-        usuarios.add(admin1);
-        usuarios.add(adminGalicia);
-        usuarios.add(gestorBalances);
-        usuarios.add(gestorCuentasBancarias);
-
         sucursal1.getClientesSucursal().add(admin1);
         sucursal1.getClientesSucursal().add(adminGalicia);
         sucursal1.getClientesSucursal().add(cliente1);
         sucursal1.getClientesSucursal().add(gestorClientes);
         sucursal1.getClientesSucursal().add(gestorBalances);
         sucursal1.getClientesSucursal().add(gestorCuentasBancarias);
+
+        usuarios.add(cliente1);
+        usuarios.add(gestorClientes);
+        usuarios.add(admin1);
+        usuarios.add(adminGalicia);
+        usuarios.add(gestorBalances);
+        usuarios.add(gestorCuentasBancarias);
 
         adminGalicia.realizarApertura(1);
         adminGalicia.realizarApertura(2);
@@ -75,6 +83,17 @@ public class MainLautaro
         adminGalicia.depositarSueldo(5,1000);
         adminGalicia.depositarSueldo(6,1000);
 
+        cuentas.add(cuentaBanco1);
+        cuentas.add(cuentaBanco2);
+        cuentas.add(cuentaBanco3);
+        cuentas.add(cuentaBanco4);
+        cuentas.add(cuentaBanco5);
+        cuentas.add(cuentaBanco6);
+    }
+
+    public void iniciar()
+    {
+        inicializarVariables();
 
         Scanner sc = new Scanner(System.in);
         Usuarios userLogueado = null;
@@ -82,7 +101,7 @@ public class MainLautaro
 
         while (ejecutarPrograma) {
 
-                    // --- NIVEL 0: BIENVENIDA Y LOGIN ---
+            // --- NIVEL 0: BIENVENIDA Y LOGIN ---
             if (userLogueado == null) {
                 System.out.println("\n[NOMBRE DEL BANCO + SUCURSAL]");
                 System.out.println("1. Iniciar Sesion");
@@ -142,16 +161,16 @@ public class MainLautaro
                                 break;
                             case 4:
                                 userLogueado=new GestorCuentasBancarias(usuarios.toArray().length+1,nombre,apellido,dni,direccion,Rol.G_CUENTAS,newUsername,newPassword,bancoGalicia,sucursal1,nuevaCuenta);
-                                    break;
+                                break;
                             case 5:
                                 userLogueado=new GestorClientes(usuarios.toArray().length+1,nombre,apellido,dni,direccion,Rol.G_CLIENTES,newUsername,newPassword,bancoGalicia,sucursal1,nuevaCuenta);
                                 break;
-                            }
+                        }
                         break;
                     case 0:
                         ejecutarPrograma = false;
                         break;
-                    }
+                }
             }
             // --- NIVEL 1: USUARIO LOGUEADO ---
             else {
@@ -517,5 +536,3 @@ public class MainLautaro
         }
     }
 }
-
-

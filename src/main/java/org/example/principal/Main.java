@@ -14,8 +14,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args)
     {
-        Scanner teclado = new Scanner(System.in); //int
-        Scanner teclado2 = new Scanner(System.in);//String
 
         Sucursal sucursalSeleccionada = null;
 
@@ -83,7 +81,6 @@ public class Main {
         bancoGalicia.hacerBalanceCuentas();
 
         BancoController bancoController = new BancoController(financier, bancoGalicia);
-
         bancoController.iniciar();
 
 

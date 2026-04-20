@@ -36,6 +36,8 @@ public class BancoController
                     break;
                 case 2:
                     System.out.println("BANCO " + bancoB.getNombreBanco());
+                    SistemaLautaro sistemaLautaro = new SistemaLautaro(bancoB);
+                    sistemaLautaro.iniciar();
                     break;
                 case 0:
                     System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");

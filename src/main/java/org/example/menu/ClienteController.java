@@ -4,6 +4,10 @@ import org.example.proyectoAle.entidades.Banco;
 import org.example.proyectoAle.entidades.Cuenta;
 import org.example.proyectoAle.entidades.Sucursal;
 import org.example.proyectoAle.usuarios.Cliente;
+import org.example.proyectoLautaro.Entity.CuentaBanco;
+import org.example.structural.adapter.transferencias.CuentaAdapterA;
+import org.example.structural.adapter.transferencias.CuentaAdapterB;
+import org.example.structural.adapter.transferencias.ServicioDeTransferencia;
 
 import java.util.Scanner;
 
@@ -24,6 +28,7 @@ public class ClienteController
     int opcion;
     Cuenta cuenta;
     Double monto;
+    CuentaBanco cuentaB;
 
     public void iniciarMenuCliente()
     {
@@ -32,8 +37,9 @@ public class ClienteController
             System.out.println("1. SOLICITAR CUENTA");
             System.out.println("2. RETIRAR DINERO");
             System.out.println("3. DEPOSITAR");
-            System.out.println("4. HACER HACER TRANSFERENCIA");
-            System.out.println("5. CERRAR SESION");
+            System.out.println("4. HACER TRANSFERENCIA LOCAL");
+            System.out.println("5. HACER TRANSFERENCIA EXTERNA");
+            System.out.println("6. CERRAR SESION");
             System.out.println("0. SALIR");
 
             opcion = teclado.nextInt();
@@ -81,6 +87,24 @@ public class ClienteController
                     cuenta.realizarTransferencia(monto, sucursal.buscarCuenta(opcion));
                     break;
                 case 5:
+                    System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
+                    cuenta = sucursal.buscarCuentaPorCliente(cliente);
+                    CuentaAdapterA cuentaAdapterA = new CuentaAdapterA(cuenta);
+                    SistemaLautaro sistemaLautaro = new SistemaLautaro();
+                    sistemaLautaro.inicializarVariables();
+
+                    System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA EXTERNA");
+                    opcion= teclado.nextInt();
+                    teclado.nextDouble();
+
+                    cuentaB = sistemaLautaro.buscarCuentaPorId(opcion);
+                    CuentaAdapterB cuentaAdapterB = new CuentaAdapterB(cuentaB);
+
+                    System.out.println("INGRESE EL MONTO A TRANSFERIR");
+                    monto = teclado.nextDouble();
+                    ServicioDeTransferencia.transferir(cuentaAdapterA, cuentaAdapterB, monto);
+                    break;
+                case 6:
                     System.out.println("CERRANDO SESION");
                     opcion = 0;
                     break;
