@@ -7,6 +7,9 @@ import org.example.proyectoLautaro.Entity.Enum.Rol;
 import org.example.proyectoLautaro.Entity.Enum.TipoCuenta;
 import org.example.proyectoLautaro.Entity.Sucursal;
 import org.example.proyectoLautaro.Entity.Usuarios.*;
+import org.example.structural.adapter.balance.BalanceAdapterA;
+import org.example.structural.adapter.balance.IComponenteFinanciero;
+import org.example.structural.adapter.balance.ServicioDeBalance;
 import org.example.structural.adapter.transferencias.CuentaAdapterA;
 import org.example.structural.adapter.transferencias.CuentaAdapterB;
 import org.example.structural.adapter.transferencias.ServicioDeTransferencia;
@@ -20,11 +23,12 @@ public class SistemaLautaro
     private ArrayList<CuentaBanco> cuentas = new ArrayList<>();
     private ArrayList<Sucursal> sucursalesGalicia = new ArrayList<>();
     private Banco bancoGalicia;
-    private org.example.proyectoAle.entidades.Banco bancoA;
+    private org.example.proyectoAle.entidades.Banco bancoAle;
 
-    public SistemaLautaro(Banco bancoB, org.example.proyectoAle.entidades.Banco bancoA) {
+
+    public SistemaLautaro(Banco bancoB, org.example.proyectoAle.entidades.Banco bancoAle) {
         this.bancoGalicia = bancoB;
-        this.bancoA = bancoA;
+        this.bancoAle=bancoAle;
                 //new Banco(1, "Galicia", "Direccion 123", sucursalesGalicia);
     }
 
@@ -282,11 +286,11 @@ public class SistemaLautaro
                     else if (userLogueado instanceof Cliente) {
                         System.out.println("-- MENU Cliente --");
                         System.out.println("1. Ver mis datos");
-                        System.out.println("2. Transferir");
-                        System.out.println("3. transferir a otro banco");
+                        System.out.println("2. Transferir (Local)");
+                        System.out.println("3. Transferir (Otro banco)");
                         System.out.println("4. Depositar");
                         System.out.println("5. Extraer");
-                        System.out.println("6. Cerrar Seción");
+                        System.out.println("6. Cerrar Sesion");
                         System.out.println("0. Salir");
                         System.out.print("Opcion: ");
 
@@ -305,10 +309,11 @@ public class SistemaLautaro
                                 userLogueado.transferir(monto,cbuUser);
                                 break;
                             case 3:
+
                                 System.out.println("INGRESE EL IDENTIFICADOR DE LA SUCURSAL EXTERNA");
                                 int opcionSucu= sc.nextInt();
-
-                                org.example.proyectoAle.entidades.Sucursal SucursalAle= bancoA.buscarSucursalPorId(opcionSucu);
+//                                sc.nextDouble();
+                                org.example.proyectoAle.entidades.Sucursal SucursalAle= bancoAle.buscarSucursalPorId(opcionSucu);
                                 System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA: ");
                                 opcionSucu=sc.nextInt();
                                 Cuenta cuentaBancoAle=SucursalAle.buscarCuenta(opcionSucu);
@@ -320,6 +325,7 @@ public class SistemaLautaro
                                 float montoCuenta = sc.nextFloat();
 
                                 ServicioDeTransferencia.transferir(cuentaAdapterB,cuentaAdapterA,montoCuenta);
+
                                 break;
                             case 4:
                                 System.out.println("Ingrese el monto a depositar: ");
@@ -333,11 +339,11 @@ public class SistemaLautaro
                                 break;
                             case 6:
                                 System.out.println("Cerrando sesion...");
-                                enSesion = false;
-                                userLogueado = null;
+                                enSesion = false; // Corta este bucle y vuelve al login
+                                userLogueado = null; // Limpia el usuario
                                 break;
                             case 0:
-                                System.exit(0);
+                                System.exit(0); // Cierra todo el programa
                                 break;
                         }
                     }
@@ -447,101 +453,120 @@ public class SistemaLautaro
                                 break;
                         }
                     }
+
                     else if (userLogueado instanceof AdminBancario){
                         System.out.println("-- MENU ADMINISTRADOR BANCARIO --");
                         System.out.println("1. Ver mis datos");
                         System.out.println("2. Balance Interno(Sucursal)");
-                        System.out.println("3. Balance Externo(Banco)");
-                        System.out.println("4. Transferir");
-                        System.out.println("5. Depositar");
-                        System.out.println("6. Extraer");
-                        System.out.println("7. Crear Sucursales");
-                        System.out.println("8. Crear Admin");
-                        System.out.println("9. Crear Gestor Balances");
-                        System.out.println("10. Crear Gestor Cliente");
-                        System.out.println("11. Crear Gestor Cuenta banco");
-                        System.out.println("12. Ver usuarios");
-                        System.out.println("13. Buscar user por id");
-                        System.out.println("14. Crear cuenta bancaria");
-                        System.out.println("15. Dar alta cuenta bancaria");
-                        System.out.println("16. Dar baja cuenta bancaria");
-                        System.out.println("17. Depositar Sueldo");
-                        System.out.println("18. Cerrar Sesion");
+                        System.out.println("3. Balance Interno(Banco interno)");
+                        System.out.println("4. Balance Externo(Banco externo)");
+                        System.out.println("5. Transferir");
+                        System.out.println("6. Depositar");
+                        System.out.println("7. Extraer");
+                        System.out.println("8. Crear Sucursales");
+                        System.out.println("9. Crear Admin");
+                        System.out.println("10. Crear Gestor Balances");
+                        System.out.println("11. Crear Gestor Cliente");
+                        System.out.println("12. Crear Gestor Cuenta banco");
+                        System.out.println("13. Ver usuarios");
+                        System.out.println("14. Buscar user por id");
+                        System.out.println("15. Crear cuenta bancaria");
+                        System.out.println("16. Dar alta cuenta bancaria");
+                        System.out.println("17. Dar baja cuenta bancaria");
+                        System.out.println("18. Depositar Sueldo");
+                        System.out.println("19. Cerrar Sesion");
                         System.out.println("0. Salir Total");
                         System.out.print("Opcion: ");
 
                         int opAdmin = sc.nextInt();
-                        sc.nextLine(); // Limpiar buffer
+//                        sc.nextLine();
 
                         switch (opAdmin) {
                             case 1:
                                 userLogueado.verMisDatos();
                                 break;
                             case 2:
-                                ((AdminBancario) userLogueado).hacerBalancesSucursal();
+                                float balanceSucursal=((AdminBancario) userLogueado).hacerBalancesSucursal();
+                                System.out.println("El balance de la sucursal es de: "+balanceSucursal);
 
                                 break;
                             case 3:
-                                ((AdminBancario) userLogueado).hacerBalanceCuentas();
+                                float balanceBanco=((AdminBancario) userLogueado).hacerBalanceCuentas();
+                                System.out.println("El balance de tu banco es: "+balanceBanco);
                                 break;
                             case 4:
+                                System.out.println("INGRESE EL IDENTIFICADOR DE LA SUCURSAL EXTERNA");
+                                int opcionSucu= sc.nextInt();
+
+                                org.example.proyectoAle.entidades.Sucursal SucursalAle= bancoAle.buscarSucursalPorId(opcionSucu);
+
+                                System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA: ");
+                                opcionSucu=sc.nextInt();
+                                Cuenta cuentaBancoAle=SucursalAle.buscarCuenta(opcionSucu);
+
+                                BalanceAdapterA cuentaBalance=new BalanceAdapterA(bancoAle);
+
+                                System.out.println("El balance del banco externo es: "+cuentaBalance.getSaldo());
+
+                                break;
+                            case 5:
                                 System.out.println("Ingrese el cbu a transferir");
                                 String cbuTrasferir=sc.nextLine();
                                 System.out.println("Ingrese el monto a transferir");
                                 float montoTrasferir=sc.nextFloat();
                                 userLogueado.transferir(montoTrasferir,cbuTrasferir);
                                 break;
-                            case 5:
+                            case 6:
                                 System.out.println("Ingrese el monto a depositar:");
                                 float depo=sc.nextFloat();
                                 userLogueado.depositar(depo);
                                 break;
-                            case 6:
+                            case 7:
                                 System.out.println("Ingrese el monto a extraer:");
                                 float extraer=sc.nextFloat();
                                 userLogueado.extraer(extraer);
                                 break;
-                            case 7:
+                            case 8:
                                 Sucursal sucu=((AdminBancario) userLogueado).crearSucursal();
                                 sucursalesGalicia.add(sucu);
                                 break;
-                            case 8:
+                            case 9:
                                 ((AdminBancario) userLogueado).crearCliente();
                                 //crear metodo
                                 break;
-                            case 9:
+                            case 10:
                                 ((AdminBancario) userLogueado).crearGBalances();
                                 break;
-                            case 10:
+                            case 11:
                                 ((AdminBancario) userLogueado).crearGClientes();
                                 break;
-                            case 11:
+                            case 12:
                                 ((AdminBancario) userLogueado).crearGCuentaBancaria();
                                 break;
-                            case 12:
+                            case 13:
                                 ((AdminBancario) userLogueado).verUsuarios();
                                 break;
-                            case 13:
+                            case 14:
                                 System.out.println("Ingrese el id del user a buscar: ");
                                 int idBusca=sc.nextInt();
                                 Usuarios userFind=((AdminBancario) userLogueado).buscarClientePorId(idBusca);
                                 System.out.println(userFind.toString());
                                 break;
-                            case 14:
+                            case 15:
                                 CuentaBanco nuevaCuenta=((AdminBancario) userLogueado).crearCuenta();
                                 cuentas.add(nuevaCuenta);
                                 break;
-                            case 15:
+                            case 16:
                                 System.out.println("Ingrese el id de la cuenta a dar de alta: ");
                                 int alta=sc.nextInt();
                                 ((AdminBancario) userLogueado).realizarApertura(alta);
                                 break;
-                            case 16:
+                            case 17:
                                 System.out.println("Ingrese el id del user a buscar: ");
                                 int baja=sc.nextInt();
                                 ((AdminBancario) userLogueado).darDeBajaCuenta(baja);
                                 break;
-                            case 17:
+                            case 18:
                                 System.out.println("Ingrese el id del user a depositar sueldo: ");
                                 int userSueldo=sc.nextInt();
                                 System.out.println("Ingresa el monto a depositar: ");
@@ -549,7 +574,7 @@ public class SistemaLautaro
                                 ((AdminBancario) userLogueado).depositarSueldo(userSueldo,montoDepo);
                                 break;
 
-                            case 18:
+                            case 19:
                                 System.out.println("Cerrando sesion...");
                                 enSesion = false; // Corta este bucle y vuelve al login
                                 userLogueado = null; // Limpia el usuario
@@ -564,3 +589,4 @@ public class SistemaLautaro
         }
     }
 }
+
