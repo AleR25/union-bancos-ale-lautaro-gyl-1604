@@ -22,4 +22,9 @@ public class Solicitud {
     public Cliente getCliente() {
         return cliente;
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

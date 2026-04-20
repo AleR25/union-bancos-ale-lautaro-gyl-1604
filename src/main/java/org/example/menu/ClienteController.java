@@ -43,6 +43,7 @@ public class ClienteController
             System.out.println("0. SALIR");
 
             opcion = teclado.nextInt();
+            teclado.nextLine();
 
             switch (opcion)
             {
@@ -54,7 +55,6 @@ public class ClienteController
                 case 2:
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
                     cuenta = sucursal.buscarCuentaPorCliente(cliente);
-                    teclado.nextDouble();
 
                     monto = teclado.nextDouble();
 
@@ -70,7 +70,6 @@ public class ClienteController
                 case 3:
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
                     cuenta = sucursal.buscarCuentaPorCliente(cliente);
-                    teclado.nextDouble();
 
                     monto = teclado.nextDouble();
                     cuenta.depositar(monto);
@@ -96,7 +95,7 @@ public class ClienteController
 
                     System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA EXTERNA");
                     opcion= teclado.nextInt();
-                    teclado.nextDouble();
+                    teclado.nextLine();
 
                     cuentaB = sistemaLautaro.buscarCuentaPorId(opcion);
                     CuentaAdapterB cuentaAdapterB = new CuentaAdapterB(cuentaB);
