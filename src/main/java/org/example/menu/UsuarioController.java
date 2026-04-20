@@ -9,10 +9,12 @@ import java.util.Scanner;
 public class UsuarioController
 {
     Banco bancoA;
+    org.example.proyectoLautaro.Entity.Banco bancoB;
     Sucursal sucursal;
 
-    public UsuarioController(Banco bancoA, Sucursal sucursal) {
+    public UsuarioController(Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB, Sucursal sucursal) {
         this.bancoA = bancoA;
+        this.bancoB = bancoB;
         this.sucursal = sucursal;
     }
 
@@ -37,7 +39,7 @@ public class UsuarioController
                     System.out.println("BANCO FINANCIER " + sucursal.getIdSucursal());
                     System.out.println("ADMINISTRADOR");
 
-                    AdminPassController adminPassController = new AdminPassController(bancoA, sucursal);
+                    AdminPassController adminPassController = new AdminPassController(bancoA, bancoB, sucursal);
                     adminPassController.iniciarGestionPassAdmin(sucursal.getAdministrador());
                     break;
                 case 2:

@@ -25,10 +25,6 @@ public class Usuario {
         return nombre;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public boolean isAsignado() {
         return asignado;
     }

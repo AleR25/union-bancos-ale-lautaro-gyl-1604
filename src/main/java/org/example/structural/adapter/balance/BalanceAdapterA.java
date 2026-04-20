@@ -6,9 +6,13 @@ import org.example.proyectoAle.entidades.Banco;
 public class BalanceAdapterA implements IComponenteFinanciero {
     private Banco banco;
 
+    public BalanceAdapterA(Banco banco) {
+        this.banco = banco;
+    }
+
     @Override
     public double getSaldo()
     {
-        return banco.getSaldo();
+        return this.banco.getSaldo();
     }
 }

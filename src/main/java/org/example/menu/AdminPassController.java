@@ -14,9 +14,11 @@ public class AdminPassController
     String usuario;
     String pass;
     boolean passCorrecta;
+    org.example.proyectoLautaro.Entity.Banco bancoB;
 
-    public AdminPassController(Banco bancoA, Sucursal sucursal) {
+    public AdminPassController(Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB, Sucursal sucursal) {
         this.bancoA = bancoA;
+        this.bancoB = bancoB;
         this.sucursal = sucursal;
     }
 
@@ -35,7 +37,7 @@ public class AdminPassController
             System.out.println("BANCO FINANCIER");
             System.out.println("ADMINISTRADOR: " + administrador.getNombre());
 
-            AdministradorController administradorController = new AdministradorController(bancoA, sucursal);
+            AdministradorController administradorController = new AdministradorController(bancoA, bancoB, sucursal);
             administradorController.iniciarMenuAdmin();
         }
         else

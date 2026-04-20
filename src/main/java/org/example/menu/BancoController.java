@@ -7,12 +7,10 @@ public class BancoController
 {
     org.example.proyectoAle.entidades.Banco bancoA;
     org.example.proyectoLautaro.Entity.Banco bancoB;
-    SucursalControler sucursal;
 
     public BancoController(org.example.proyectoAle.entidades.Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB) {
         this.bancoA = bancoA;
         this.bancoB = bancoB;
-        this.sucursal = new SucursalControler();
     }
 
     Scanner teclado =new Scanner(System.in);
@@ -32,6 +30,7 @@ public class BancoController
             {
                 case 1:
                     System.out.println("BANCO " + bancoA.getNombre());
+                    SucursalControler sucursal = new SucursalControler(bancoB);
                     sucursal.iniciarMenuASucursal(bancoA);
                     break;
                 case 2:

@@ -10,6 +10,11 @@ public class SucursalControler
     Sucursal sucursal;
     Scanner teclado = new Scanner(System.in);
     int opcion;
+    org.example.proyectoLautaro.Entity.Banco bancoB;
+
+    public SucursalControler(org.example.proyectoLautaro.Entity.Banco bancoB) {
+        this.bancoB = bancoB;
+    }
 
     public void iniciarMenuASucursal(org.example.proyectoAle.entidades.Banco bancoA)
     {
@@ -26,7 +31,7 @@ public class SucursalControler
             else
             {
                 System.out.println("BANCO FINANCIER, SUCURSAL " + sucursal.getIdSucursal());
-                UsuarioController usuarioController = new UsuarioController(bancoA, sucursal);
+                UsuarioController usuarioController = new UsuarioController(bancoA, bancoB, sucursal);
                 usuarioController.iniciarMenuUsuario();
             }
 

@@ -2,6 +2,8 @@ package org.example.menu;
 
 import org.example.proyectoAle.entidades.Banco;
 import org.example.proyectoAle.entidades.Sucursal;
+import org.example.structural.adapter.balance.BalanceAdapterB;
+import org.example.structural.adapter.balance.ServicioDeBalance;
 
 import java.util.Scanner;
 
@@ -9,9 +11,11 @@ public class AdministradorController
 {
     Banco bancoA;
     Sucursal sucursal;
+    org.example.proyectoLautaro.Entity.Banco bancoB;
 
-    public AdministradorController(Banco bancoA, Sucursal sucursal) {
+    public AdministradorController(Banco bancoA, org.example.proyectoLautaro.Entity.Banco bancoB, Sucursal sucursal) {
         this.bancoA = bancoA;
+        this.bancoB = bancoB;
         this.sucursal = sucursal;
     }
 
@@ -37,7 +41,9 @@ public class AdministradorController
                     System.out.println("EL BALANCE GENERAL INTERNO ES: " + bancoA.getSaldo());
                     break;
                 case 2:
-                    System.out.println("EL BALANCE GENERAL EXTERNO ES: ");
+                    BalanceAdapterB balanceAdapterB = new BalanceAdapterB(bancoB);
+                    System.out.println("EL BALANCE GENERAL EXTERNO ES: " + ServicioDeBalance.balanceDelB(balanceAdapterB));
+
                     break;
                 case 3:
                     System.out.println("INGRENSANDO AL MENU DE GESTION DE SOLICITUDES");
