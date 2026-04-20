@@ -27,6 +27,10 @@ public class Main {
 
         System.out.println(financier);
 
+        financier.getSucursales().get(0).crearCliente("Alejandro", "ale123", "12345");
+        financier.getSucursales().get(0).crearCuenta(financier.getSucursales().get(0).buscarCliente(1), org.example.proyectoAle.entidades.TipoCuenta.CUENTA_CORRIENTE);
+        System.out.println(financier);
+
         ArrayList<Usuarios> usuarios = new ArrayList<>();
 
         ArrayList<org.example.proyectoLautaro.Entity.Sucursal> sucursalesIcbc = new ArrayList<>();
