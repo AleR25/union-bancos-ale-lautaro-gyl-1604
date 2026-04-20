@@ -36,7 +36,7 @@ public class BancoController
                     break;
                 case 2:
                     System.out.println("BANCO " + bancoB.getNombreBanco());
-                    SistemaLautaro sistemaLautaro = new SistemaLautaro(bancoB);
+                    SistemaLautaro sistemaLautaro = new SistemaLautaro(bancoB, bancoA);
                     sistemaLautaro.iniciar();
                     break;
                 case 0:

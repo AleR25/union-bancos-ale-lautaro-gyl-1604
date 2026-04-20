@@ -1,11 +1,15 @@
 package org.example.menu;
 
+import org.example.proyectoAle.entidades.Cuenta;
 import org.example.proyectoLautaro.Entity.Banco;
 import org.example.proyectoLautaro.Entity.CuentaBanco;
 import org.example.proyectoLautaro.Entity.Enum.Rol;
 import org.example.proyectoLautaro.Entity.Enum.TipoCuenta;
 import org.example.proyectoLautaro.Entity.Sucursal;
 import org.example.proyectoLautaro.Entity.Usuarios.*;
+import org.example.structural.adapter.transferencias.CuentaAdapterA;
+import org.example.structural.adapter.transferencias.CuentaAdapterB;
+import org.example.structural.adapter.transferencias.ServicioDeTransferencia;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,9 +20,11 @@ public class SistemaLautaro
     private ArrayList<CuentaBanco> cuentas = new ArrayList<>();
     private ArrayList<Sucursal> sucursalesGalicia = new ArrayList<>();
     private Banco bancoGalicia;
+    private org.example.proyectoAle.entidades.Banco bancoA;
 
-    public SistemaLautaro(Banco bancoB) {
+    public SistemaLautaro(Banco bancoB, org.example.proyectoAle.entidades.Banco bancoA) {
         this.bancoGalicia = bancoB;
+        this.bancoA = bancoA;
                 //new Banco(1, "Galicia", "Direccion 123", sucursalesGalicia);
     }
 
@@ -76,12 +82,12 @@ public class SistemaLautaro
         adminGalicia.realizarApertura(5);
         adminGalicia.realizarApertura(6);
 
-        /*adminGalicia.depositarSueldo(1,1000);
+        adminGalicia.depositarSueldo(1,1000);
         adminGalicia.depositarSueldo(2,1000);
         adminGalicia.depositarSueldo(3,1000);
         adminGalicia.depositarSueldo(4,1000);
         adminGalicia.depositarSueldo(5,1000);
-        adminGalicia.depositarSueldo(6,1000);*/
+        adminGalicia.depositarSueldo(6,1000);
 
         cuentas.add(cuentaBanco1);
         cuentas.add(cuentaBanco2);
@@ -277,8 +283,10 @@ public class SistemaLautaro
                         System.out.println("-- MENU Cliente --");
                         System.out.println("1. Ver mis datos");
                         System.out.println("2. Transferir");
-                        System.out.println("3. Depositar");
-                        System.out.println("4. Extraer");
+                        System.out.println("3. transferir a otro banco");
+                        System.out.println("4. Depositar");
+                        System.out.println("5. Extraer");
+                        System.out.println("6. Cerrar Seción");
                         System.out.println("0. Salir");
                         System.out.print("Opcion: ");
 
@@ -297,19 +305,39 @@ public class SistemaLautaro
                                 userLogueado.transferir(monto,cbuUser);
                                 break;
                             case 3:
+                                System.out.println("INGRESE EL IDENTIFICADOR DE LA SUCURSAL EXTERNA");
+                                int opcionSucu= sc.nextInt();
+
+                                org.example.proyectoAle.entidades.Sucursal SucursalAle= bancoA.buscarSucursalPorId(opcionSucu);
+                                System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA: ");
+                                opcionSucu=sc.nextInt();
+                                Cuenta cuentaBancoAle=SucursalAle.buscarCuenta(opcionSucu);
+
+                                CuentaAdapterA cuentaAdapterA=new CuentaAdapterA(cuentaBancoAle);
+                                CuentaAdapterB cuentaAdapterB=new CuentaAdapterB(userLogueado.getCuentaBanco());
+
+                                System.out.println("INGRESE EL MONTO A TRANSFERIR");
+                                float montoCuenta = sc.nextFloat();
+
+                                ServicioDeTransferencia.transferir(cuentaAdapterB,cuentaAdapterA,montoCuenta);
+                                break;
+                            case 4:
                                 System.out.println("Ingrese el monto a depositar: ");
                                 float montoDepo=sc.nextFloat();
                                 userLogueado.depositar(montoDepo);
                                 break;
-                            case 4:
+                            case 5:
                                 System.out.println("Ingrese el monto a extraer: ");
                                 float montoExtra=sc.nextFloat();
                                 userLogueado.extraer(montoExtra);
                                 break;
-                            case 0:
+                            case 6:
                                 System.out.println("Cerrando sesion...");
-                                enSesion = false; // Corta este bucle y vuelve al login
-                                userLogueado = null; // Limpia el usuario
+                                enSesion = false;
+                                userLogueado = null;
+                                break;
+                            case 0:
+                                System.exit(0);
                                 break;
                         }
                     }

@@ -85,7 +85,5 @@ public class Main {
 
         BancoController bancoController = new BancoController(financier, bancoGalicia);
         bancoController.iniciar();
-
-
     }
 }
