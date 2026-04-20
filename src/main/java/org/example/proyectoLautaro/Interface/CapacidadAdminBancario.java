@@ -77,4 +77,5 @@ public interface CapacidadAdminBancario extends CapacidadUserCuentasBancarias,Ca
 
     @Override
     void cerrarSesion();
+    void crearAdmin();
 }

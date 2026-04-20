@@ -36,7 +36,7 @@ public  abstract class Usuarios  implements CapacidadUsers, CapacidadUserCliente
 
     @Override
     public void verMisDatos() {
-
+        System.out.println(toString());
     }
 
     public CuentaBanco getCuentaBanco() {

@@ -19,6 +19,7 @@ public class AdapterBalanceB implements ComponenteBalances {
         return  resultado;
     }
 
+
     public float balanceBanco(){
         float resultado= bancoB.hacerBalanceCuentas();
         return resultado;
