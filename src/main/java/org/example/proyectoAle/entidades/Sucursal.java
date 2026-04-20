@@ -37,6 +37,11 @@ public class Sucursal implements ComponenteFinanciero
         return clientes;
     }
 
+    public boolean existeUsuario(String usuario) {
+        return clientes.stream()
+                .anyMatch(c -> c.getUsername().equalsIgnoreCase(usuario));
+    }
+
     public void crearCliente(String nombre, String usuario, String pass)
     {
         clientes.add(new Cliente(nombre, false, usuario, pass));
@@ -62,19 +67,10 @@ public class Sucursal implements ComponenteFinanciero
                 .orElse(null);
     }
 
-    //metodo para buscar cliente en List, no funciona fuera de Sucursal
-    private Cliente buscarCliente(int idCliente)
+    public Cliente buscarCliente(int idCliente)
     {
         return clientes.stream()
                 .filter(c -> c.getIdUsuario() == idCliente)
-                .findFirst()
-                .orElse(null);
-    }
-
-    //
-    public Cliente login(String username, String password) {
-        return clientes.stream()
-                .filter(u -> u.autenticar(username, password))
                 .findFirst()
                 .orElse(null);
     }

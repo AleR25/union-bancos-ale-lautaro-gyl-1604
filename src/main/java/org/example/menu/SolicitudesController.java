@@ -8,14 +8,22 @@ import java.util.Scanner;
 
 public class SolicitudesController
 {
+    Banco bancoA;
+    Sucursal sucursal;
+
+    public SolicitudesController(Banco bancoA, Sucursal sucursal) {
+        this.bancoA = bancoA;
+        this.sucursal = sucursal;
+    }
+
     Scanner teclado = new Scanner(System.in);
     int opcion;
 
-    public void iniciarMenuSolicitudes(Sucursal sucursal)
+    public void iniciarMenuSolicitudes()
     {
         do
         {
-            System.out.println("BANCO FINANCIER");
+            System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
             System.out.println("ADMINISTRADOR");
             System.out.println("1 MOSTRAR SOLICITUDES PENDIENTES");
             System.out.println("2. ACEPTAR SOLICITUD");
@@ -33,7 +41,7 @@ public class SolicitudesController
                     break;
                 case 2:
                     System.out.println("ACEPTAR SOLICITUD");
-                    sucursal.
+                    //sucursal.getAdministrador().
                     break;
                 case 3:
                     System.out.println("INGRENSANDO AL MENU DE GESTION DE SOLICITUDES");

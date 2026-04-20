@@ -46,5 +46,4 @@ public class BancoController
 
         } while (opcion != 0);
     }
-
 }

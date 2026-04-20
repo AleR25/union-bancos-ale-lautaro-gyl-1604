@@ -9,14 +9,17 @@ import java.util.Scanner;
 public class UsuarioController
 {
     Banco bancoA;
+    Sucursal sucursal;
+
+    public UsuarioController(Banco bancoA, Sucursal sucursal) {
+        this.bancoA = bancoA;
+        this.sucursal = sucursal;
+    }
+
     Scanner teclado =new Scanner(System.in);
     int opcion;
 
-    public UsuarioController(Banco bancoA) {
-        this.bancoA = bancoA;
-    }
-
-    public void iniciarMenuUsuario(Sucursal sucursal) {
+    public void iniciarMenuUsuario() {
 
         do {
             System.out.println("ELEGIR UNA OPCION");
@@ -41,10 +44,16 @@ public class UsuarioController
                     System.out.println("BANCO FINANCIER " + sucursal.getIdSucursal());
                     System.out.println("CLIENTE");
 
+                    ClientePassController clientePassController = new ClientePassController(bancoA, sucursal);
+                    clientePassController.iniciarGestionPassCliente();
+
                     break;
                 case 3:
-                    System.out.println("BANCO FINANCIER " + sucursal.getIdSucursal());
+                    System.out.println("BANCO " + bancoA.getNombre() + ", SUCURSAL " + sucursal.getIdSucursal());
                     System.out.println("QUIERO SER CLIENTE");
+
+                    QuieroSerClienteController quieroSerClienteController = new QuieroSerClienteController(bancoA, sucursal);
+                    quieroSerClienteController.crearUsuario();
                     break;
                 case 4:
                     System.out.println("VOLVIENDO AL MENU ANTERIOR");

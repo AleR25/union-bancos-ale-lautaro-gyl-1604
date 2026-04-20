@@ -26,8 +26,8 @@ public class SucursalControler
             else
             {
                 System.out.println("BANCO FINANCIER, SUCURSAL " + sucursal.getIdSucursal());
-                UsuarioController usuarioController = new UsuarioController(bancoA);
-                usuarioController.iniciarMenuUsuario(sucursal);
+                UsuarioController usuarioController = new UsuarioController(bancoA, sucursal);
+                usuarioController.iniciarMenuUsuario();
             }
 
         } while (sucursal == null && opcion != 0);

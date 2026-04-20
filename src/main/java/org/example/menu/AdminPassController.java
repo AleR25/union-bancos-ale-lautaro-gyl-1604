@@ -35,8 +35,8 @@ public class AdminPassController
             System.out.println("BANCO FINANCIER");
             System.out.println("ADMINISTRADOR: " + administrador.getNombre());
 
-            AdministradorController administradorController = new AdministradorController();
-            administradorController.iniciarMenuAdmin(bancoA, sucursal);
+            AdministradorController administradorController = new AdministradorController(bancoA, sucursal);
+            administradorController.iniciarMenuAdmin();
         }
         else
         {
