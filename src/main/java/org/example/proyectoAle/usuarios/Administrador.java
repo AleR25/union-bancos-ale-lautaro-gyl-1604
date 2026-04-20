@@ -25,9 +25,44 @@ public class Administrador extends Usuario {
         System.out.println("NO HAY MAS SOLICITUDES");
     }
 
-    public void resolverSolicitud()
+    public Cliente aceptarSolicitud(int idSolicitud)
     {
+        Solicitud solicitud = buscarSolicitud(idSolicitud);
+        Cliente cliente = null;
 
+        if ( solicitud != null)
+        {
+            cliente = solicitud.getCliente();
+            eliminarSolicitudPorId(solicitud.getIdSolicitud());
+        }
+        return cliente;
+    }
+
+    public void rechazarSolicitud(int idSolicitud)
+    {
+        Solicitud solicitud = buscarSolicitud(idSolicitud);
+        Cliente cliente = null;
+        if ( solicitud == null)
+        {
+            System.out.println("EL ID SOLICITUD NO COINCIDE CON NINGUNA");
+        }
+        else
+        {
+            eliminarSolicitudPorId(solicitud.getIdSolicitud());
+        }
+    }
+
+    public Solicitud buscarSolicitud(int idSolicitud)
+    {
+        return solicitudes.stream()
+                .filter(s -> s.getIdSolicitud() == idSolicitud)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void eliminarSolicitudPorId(int idSolicitud)
+    {
+        solicitudes.removeIf(s -> s.getIdSolicitud() == idSolicitud);
     }
 
     public void agregarSolicitud(Solicitud solicitud)

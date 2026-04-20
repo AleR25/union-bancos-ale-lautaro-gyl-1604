@@ -15,4 +15,11 @@ public class Solicitud {
         this.cliente = cliente;
     }
 
+    public int getIdSolicitud() {
+        return idSolicitud;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
 }

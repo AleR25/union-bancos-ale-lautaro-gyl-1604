@@ -1,6 +1,7 @@
 package org.example.menu;
 
 import org.example.proyectoAle.entidades.Banco;
+import org.example.proyectoAle.entidades.Cuenta;
 import org.example.proyectoAle.entidades.Sucursal;
 import org.example.proyectoAle.usuarios.Cliente;
 
@@ -21,6 +22,8 @@ public class ClienteController
 
     Scanner teclado = new Scanner(System.in);
     int opcion;
+    Cuenta cuenta;
+    Double monto;
 
     public void iniciarMenuCliente()
     {
@@ -44,23 +47,50 @@ public class ClienteController
                     break;
                 case 2:
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
+                    cuenta = sucursal.buscarCuentaPorCliente(cliente);
+                    teclado.nextDouble();
+
+                    monto = teclado.nextDouble();
+
+                    if (cuenta == null)
+                    {
+                        System.out.println("EL CLIENTE NO TIENE CUENTA");
+                    }
+                    else
+                    {
+                        cuenta.retirar(monto);
+                    }
                     break;
                 case 3:
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
+                    cuenta = sucursal.buscarCuentaPorCliente(cliente);
+                    teclado.nextDouble();
+
+                    monto = teclado.nextDouble();
+                    cuenta.depositar(monto);
                     break;
                 case 4:
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
+                    cuenta = sucursal.buscarCuentaPorCliente(cliente);
+                    teclado.nextDouble();
+
+                    monto = teclado.nextDouble();
+                    teclado.nextInt();
+
+                    opcion = teclado.nextInt();
+                    cuenta.realizarTransferencia(monto, sucursal.buscarCuenta(opcion));
                     break;
                 case 5:
-
+                    System.out.println("CERRANDO SESION");
+                    opcion = 0;
                     break;
                 case 0:
                     System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("OPCION EQUIVOCADA");
             }
-
         } while (opcion != 0);
     }
 }

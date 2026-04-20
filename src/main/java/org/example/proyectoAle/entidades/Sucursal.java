@@ -47,10 +47,10 @@ public class Sucursal implements ComponenteFinanciero
         clientes.add(new Cliente(nombre, false, usuario, pass));
     }
 
-    public void crearCuenta(Cuenta cuenta) //posible tipo cuenta
+    public void crearCuenta(Cliente cliente, TipoCuenta tipoCuenta) //posible tipo cuenta
     {
-        cuentas.add(cuenta);
-        System.out.println("Cuenta creada correctamente"); //ejecutar un if
+        Cuenta cuentaNueva = new Cuenta(cliente, tipoCuenta);
+        cuentas.add(cuentaNueva);
     }
 
     public void solicitudCrearCuenta(int idCliente)
@@ -65,6 +65,13 @@ public class Sucursal implements ComponenteFinanciero
                 .filter(c -> c.getIdCuenta() == idCuenta)
                 .findFirst()
                 .orElse(null);
+    }
+
+    public Cuenta buscarCuentaPorCliente(Cliente clienteBuscado) {
+        return this.cuentas.stream()
+                .filter(cuenta -> cuenta.getCliente().equals(clienteBuscado))
+                .findFirst()
+                .orElse(null); // Retorna null si el cliente no tiene cuenta en esta sucursal
     }
 
     public Cliente buscarCliente(int idCliente)

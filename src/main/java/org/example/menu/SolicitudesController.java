@@ -2,6 +2,8 @@ package org.example.menu;
 
 import org.example.proyectoAle.entidades.Banco;
 import org.example.proyectoAle.entidades.Sucursal;
+import org.example.proyectoAle.entidades.TipoCuenta;
+import org.example.proyectoAle.usuarios.Cliente;
 
 import java.sql.SQLOutput;
 import java.util.Scanner;
@@ -18,6 +20,7 @@ public class SolicitudesController
 
     Scanner teclado = new Scanner(System.in);
     int opcion;
+    Cliente cliente;
 
     public void iniciarMenuSolicitudes()
     {
@@ -40,15 +43,27 @@ public class SolicitudesController
                     sucursal.getAdministrador().mostrarSolicitudesPendientes();
                     break;
                 case 2:
-                    System.out.println("ACEPTAR SOLICITUD");
-                    //sucursal.getAdministrador().
+                    System.out.println("INGRESE EL ID DE LA SOLICITUD A ACEPTAR");
+                    opcion = teclado.nextInt();
+
+                    cliente = sucursal.getAdministrador().aceptarSolicitud(opcion);
+                    if (cliente == null)
+                    {
+                        System.out.println("NO SE ENCONTRO SOLICITUD");
+                    }
+                    else
+                    {
+                        sucursal.crearCuenta(cliente, TipoCuenta.CUENTA_CORRIENTE);
+                    }
                     break;
                 case 3:
-                    System.out.println("INGRENSANDO AL MENU DE GESTION DE SOLICITUDES");
-                    //GESTION DE SOLICITUDES
+                    System.out.println("RECHAZAR SOLICITUD");
+                    opcion = teclado.nextInt();
+                    sucursal.getAdministrador().rechazarSolicitud(opcion);
                     break;
                 case 4:
                     System.out.println("CERRANDO SESION");
+                    opcion = 0;
                     break;
                 case 0:
                     System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");
@@ -56,7 +71,6 @@ public class SolicitudesController
                 default:
                     System.out.println("OPCION EQUIVOCADA");
             }
-
         } while (opcion != 0);
     }
 }

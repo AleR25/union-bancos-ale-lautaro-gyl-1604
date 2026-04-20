@@ -51,10 +51,10 @@ public class AdministradorController
                 case 0:
                     System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");
                     System.exit(0);
+                    break;
                 default:
                     System.out.println("OPCION EQUIVOCADA");
             }
-
         } while (opcion != 0);
     }
 }
