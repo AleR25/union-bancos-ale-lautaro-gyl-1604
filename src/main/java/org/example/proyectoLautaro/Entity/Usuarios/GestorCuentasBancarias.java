@@ -90,10 +90,11 @@ public class GestorCuentasBancarias  extends Usuarios implements CapacidadUserCu
 
     }
 
+    //Hacer metodo
     @Override
-    public void asignarCuenta(int idUser, int idCuenta) {
+    public void asignarCuenta(int idUser, int idCuenta,ArrayList<CuentaBanco>cuentas) {
         Usuarios clienteEncontrado = null;
-
+        CuentaBanco cuentaEncontrada=null;
 
         // 1. Buscamos al cliente en la sucursal por su ID
         for (Usuarios cli : this.getSucursal().getClientesSucursal()) {
@@ -102,12 +103,30 @@ public class GestorCuentasBancarias  extends Usuarios implements CapacidadUserCu
                 break;
             }
         }
+        for (CuentaBanco cuen: cuentas) {
+            if (cuen.getId()==idCuenta){
+                cuentaEncontrada=cuen;
+                break;
+            }
+        }
 
-        if (clienteEncontrado != null) {
-
+        if (clienteEncontrado != null && cuentaEncontrada!=null) {
+            clienteEncontrado.setCuentaBanco(cuentaEncontrada);
             System.out.println("Cuenta asignada exitosamente.");
         } else {
             System.out.println("Error: No se encontró el cliente con ID " + idUser);
+        }
+    }
+
+    @Override
+    public void verCuentas(ArrayList<CuentaBanco> cuentas) {
+        System.out.println("Mostrando Cuentas de banco: \n");
+        if (cuentas.isEmpty()) {
+            System.out.println("La lista de cuentas está vacía.");
+        } else {
+            for (CuentaBanco cuen: cuentas){
+                System.out.println(cuen.toString()); // AHORA SÍ SE IMPRIME
+            }
         }
     }
 

@@ -1,13 +1,13 @@
 package org.example.proyectoAle.entidades;
 
 import org.example.proyectoAle.interf.ComponenteFinanciero;
+import org.example.proyectoAle.usuarios.Cliente;
 
 public class Cuenta implements ComponenteFinanciero {
     private int contador = 1;
 
     private int idCuenta;
-    private String titular;
-    private Usuario usuario;
+    Cliente cliente;
     private double saldo;
     private boolean activa;
     private TipoCuenta tipoDeCuenta;
@@ -17,13 +17,16 @@ public class Cuenta implements ComponenteFinanciero {
     * cuenta tiene que estar activa
     * */
 
-    public Cuenta(String titular, Usuario usuario, TipoCuenta tipoDeCuenta) {
+    public Cuenta(Cliente cliente, TipoCuenta tipoDeCuenta) {
         this.idCuenta = contador++;
-        this.titular = titular;
-        this.usuario = usuario; //Puede ser cliente o administrador
+        this.cliente = cliente;
         this.saldo = 0;
         this.activa = true;
         this.tipoDeCuenta = tipoDeCuenta;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
     public void realizarTransferencia(double monto, Cuenta cuentaDestinatario) {
@@ -43,11 +46,11 @@ public class Cuenta implements ComponenteFinanciero {
         if (monto > 0 && activa == true)
         {
             sumarSaldo(monto);
-            System.out.println("El saldo actual de " + this.titular + " es de: " + this.saldo);
+            System.out.println("Su saldo actual es de: " + this.saldo);
         }
         else if(monto < 0 && activa == false)
         {
-            System.out.println("El monto a depositar en la cuenta de " + this.titular + " es insuficiente");
+            System.out.println("El monto a depositar en su cuenta es insuficiente");
         }
         else
         {
@@ -67,20 +70,14 @@ public class Cuenta implements ComponenteFinanciero {
         }
         else if (!puedeRetirar(monto))
         {
-            System.out.println("El monto a extraer de la cuenta de "
-                    + this.titular
-                    + " es mayor del que posee en la cuenta");
+            System.out.println("El monto a extraer es mayor del que posee en la cuenta");
         }
         else
         {
             restarSaldo(monto);
-            System.out.println("El saldo actual de "
-                    + this.titular
-                    + " es de: " + this.saldo);
+            System.out.println("Su saldo actual es de: " + this.saldo);
 
-            System.out.println("El monto entregado a "
-                    + this.titular
-                    + " es de: " + monto);
+            System.out.println("El monto entregado es de: " + monto);
         }
     }
 

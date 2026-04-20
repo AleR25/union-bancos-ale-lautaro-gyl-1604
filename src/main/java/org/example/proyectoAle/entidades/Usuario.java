@@ -17,8 +17,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public String getNombre() {

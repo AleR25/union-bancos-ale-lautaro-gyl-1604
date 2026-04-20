@@ -14,7 +14,6 @@ public class Sucursal implements ComponenteFinanciero
     private Administrador administrador;
     private List<Cuenta> cuentas;
     private List<Cliente> clientes;
-    private List<Solicitud> solicitudes;
 
     private static int contador = 1;
 
@@ -24,11 +23,6 @@ public class Sucursal implements ComponenteFinanciero
         this.administrador = administrador;
         this.cuentas = new ArrayList<>();
         this.clientes = new ArrayList<>();
-        this.solicitudes = new ArrayList<>();
-    }
-
-    public List<Solicitud> getSolicitudes() {
-        return solicitudes;
     }
 
     public Administrador getAdministrador() {
@@ -43,21 +37,26 @@ public class Sucursal implements ComponenteFinanciero
         return clientes;
     }
 
+    public boolean existeUsuario(String usuario) {
+        return clientes.stream()
+                .anyMatch(c -> c.getUsername().equalsIgnoreCase(usuario));
+    }
+
     public void crearCliente(String nombre, String usuario, String pass)
     {
         clientes.add(new Cliente(nombre, false, usuario, pass));
     }
 
-    public void agregarCuenta(Cuenta cuenta) //posible tipo cuenta
+    public void crearCuenta(Cliente cliente, TipoCuenta tipoCuenta) //posible tipo cuenta
     {
-        cuentas.add(cuenta);
-        System.out.println("Cuenta creada correctamente"); //ejecutar un if
+        Cuenta cuentaNueva = new Cuenta(cliente, tipoCuenta);
+        cuentas.add(cuentaNueva);
     }
 
-    public void solicitudCrearCuenta(int idCliente, TipoCuenta tipoCuenta)
+    public void solicitudCrearCuenta(int idCliente)
     {
-        Solicitud solicitud = new Solicitud(buscarCliente(idCliente), tipoCuenta);
-        solicitudes.add(solicitud);
+        Solicitud solicitud = new Solicitud(buscarCliente(idCliente));
+        administrador.agregarSolicitud(solicitud);
     }
 
     public Cuenta buscarCuenta(int idCuenta)
@@ -68,19 +67,17 @@ public class Sucursal implements ComponenteFinanciero
                 .orElse(null);
     }
 
-    //metodo para buscar cliente en List, no funciona fuera de Sucursal
-    private Cliente buscarCliente(int idCliente)
+    public Cuenta buscarCuentaPorCliente(Cliente clienteBuscado) {
+        return this.cuentas.stream()
+                .filter(cuenta -> cuenta.getCliente().equals(clienteBuscado))
+                .findFirst()
+                .orElse(null); // Retorna null si el cliente no tiene cuenta en esta sucursal
+    }
+
+    public Cliente buscarCliente(int idCliente)
     {
         return clientes.stream()
                 .filter(c -> c.getIdUsuario() == idCliente)
-                .findFirst()
-                .orElse(null);
-    }
-
-    //
-    public Cliente login(String username, String password) {
-        return clientes.stream()
-                .filter(u -> u.autenticar(username, password))
                 .findFirst()
                 .orElse(null);
     }

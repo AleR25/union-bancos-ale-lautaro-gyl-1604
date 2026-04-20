@@ -1,5 +1,15 @@
 package org.example.principal;
 
+import org.example.menu.BancoController;
+import org.example.proyectoAle.entidades.Sucursal;
+import org.example.proyectoLautaro.Entity.CuentaBanco;
+import org.example.proyectoLautaro.Entity.Enum.Rol;
+import org.example.proyectoLautaro.Entity.Enum.TipoCuenta;
+import org.example.proyectoLautaro.Entity.Usuarios.*;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class MainAle
 {
     public static void main(String[] args)
@@ -9,6 +19,8 @@ public class MainAle
         System.out.println("2. BANCO GALICIA");
         System.out.println("0. SALIR");
 
+
+        //POSIBLE DESCARTE
         System.out.println("NOMBRE DEL BANCO");
         System.out.println("ELEGIR UNA OPCION");
         System.out.println("1. ELEGIR SUCURSAL");
@@ -124,5 +136,11 @@ public class MainAle
         //EN MI CODIGO ESTO INVOCARIA A UNA FUNCION EN SUCURSAL QUE CREARIA
         //UN CLIENTE
         //SE ENVIARIA LA SOLICITUD AL ADMINISTRADOR DE LA SUCURSAL PARA ACEPTARLO O RECHARZARLO
+
+
+
+
+
     }
+
 }
