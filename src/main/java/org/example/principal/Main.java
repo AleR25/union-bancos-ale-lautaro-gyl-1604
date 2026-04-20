@@ -2,6 +2,7 @@ package org.example.principal;
 
 import org.example.menu.BancoController;
 import org.example.proyectoAle.entidades.Banco;
+import org.example.proyectoAle.entidades.Cuenta;
 import org.example.proyectoAle.entidades.Sucursal;
 import org.example.proyectoLautaro.Entity.CuentaBanco;
 import org.example.proyectoLautaro.Entity.Enum.Rol;
@@ -23,9 +24,11 @@ public class Main {
         financier.contratarAdministrador("Pedro", "pedro123", "HolaMundo123");
 
         financier.crearSucursal("Av cordoba", financier.getAdministradores().get(0));
-        financier.crearSucursal("Av corrientes", financier.getAdministradores().get(0));
+        financier.crearSucursal("Av corrientes", financier.getAdministradores().get(1));
 
-        System.out.println(financier);
+        financier.getSucursales().get(0).crearCliente("Alejandro", "ale123", "12345");
+        financier.getSucursales().get(0).crearCuenta(financier.getSucursales().get(0).buscarCliente(1), org.example.proyectoAle.entidades.TipoCuenta.CUENTA_CORRIENTE);
+        System.out.println();
 
         ArrayList<Usuarios> usuarios = new ArrayList<>();
 

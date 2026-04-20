@@ -56,7 +56,7 @@ public class UsuarioController
                     quieroSerClienteController.crearUsuario();
                     break;
                 case 4:
-                    System.out.println("VOLVIENDO AL MENU ANTERIOR");
+                    System.out.println("VOLVIENDO A SELECCION DE BANCO");
                     opcion = 0;
                     break;
                 case 0:
