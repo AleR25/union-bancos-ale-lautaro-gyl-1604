@@ -90,6 +90,7 @@ public class ClienteController
                     System.out.println("BANCO: " + bancoA.getNombre() + ", SUCURSAL: " + sucursal.getIdSucursal());
                     cuenta = sucursal.buscarCuentaPorCliente(cliente);
                     CuentaAdapterA cuentaAdapterA = new CuentaAdapterA(cuenta);
+
                     SistemaLautaro sistemaLautaro = new SistemaLautaro();
                     sistemaLautaro.inicializarVariables();
 

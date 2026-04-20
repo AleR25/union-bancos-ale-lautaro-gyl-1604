@@ -76,12 +76,12 @@ public class SistemaLautaro
         adminGalicia.realizarApertura(5);
         adminGalicia.realizarApertura(6);
 
-        adminGalicia.depositarSueldo(1,1000);
+        /*adminGalicia.depositarSueldo(1,1000);
         adminGalicia.depositarSueldo(2,1000);
         adminGalicia.depositarSueldo(3,1000);
         adminGalicia.depositarSueldo(4,1000);
         adminGalicia.depositarSueldo(5,1000);
-        adminGalicia.depositarSueldo(6,1000);
+        adminGalicia.depositarSueldo(6,1000);*/
 
         cuentas.add(cuentaBanco1);
         cuentas.add(cuentaBanco2);

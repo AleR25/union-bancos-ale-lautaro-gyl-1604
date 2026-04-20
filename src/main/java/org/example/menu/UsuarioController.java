@@ -57,6 +57,7 @@ public class UsuarioController
                     break;
                 case 4:
                     System.out.println("VOLVIENDO AL MENU ANTERIOR");
+                    opcion = 0;
                     break;
                 case 0:
                     System.out.println("QUE TENGA BUEN DIA, VUELVA PRONTO");
@@ -65,7 +66,6 @@ public class UsuarioController
                 default:
                     System.out.println("OPCION EQUIVOCADA");
             }
-
         } while (opcion != 0);
     }
 }
