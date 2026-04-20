@@ -495,19 +495,8 @@ public class SistemaLautaro
                                 System.out.println("El balance de tu banco es: "+balanceBanco);
                                 break;
                             case 4:
-                                System.out.println("INGRESE EL IDENTIFICADOR DE LA SUCURSAL EXTERNA");
-                                int opcionSucu= sc.nextInt();
-
-                                org.example.proyectoAle.entidades.Sucursal SucursalAle= bancoAle.buscarSucursalPorId(opcionSucu);
-
-                                System.out.println("INGRESE EL IDENTIFICADOR DE LA CUENTA: ");
-                                opcionSucu=sc.nextInt();
-                                Cuenta cuentaBancoAle=SucursalAle.buscarCuenta(opcionSucu);
-
                                 BalanceAdapterA cuentaBalance=new BalanceAdapterA(bancoAle);
-
                                 System.out.println("El balance del banco externo es: "+cuentaBalance.getSaldo());
-
                                 break;
                             case 5:
                                 System.out.println("Ingrese el cbu a transferir");
