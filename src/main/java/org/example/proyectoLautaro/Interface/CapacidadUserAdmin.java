@@ -8,6 +8,7 @@ public interface CapacidadUserAdmin extends CapacidadUsers{
 
     void asignarCuenta(int idUser,int idCuenta);
     Usuarios buscarClientePorCbu(String cbu);
+    void verSucursal();
     void verClientes();
     void depositarSueldo(int idUser,float monto);
     void darBajaCuenta(int id);

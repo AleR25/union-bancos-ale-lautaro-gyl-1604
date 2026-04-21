@@ -120,14 +120,32 @@ public class Admin  extends Usuarios implements CapacidadUserAdmin,CapacidadLogi
 
     @Override
     public void verCuentas(ArrayList<CuentaBanco> cuentas) {
-        System.out.println("Mostrando Cuentas de banco: \n");
-        if (cuentas.isEmpty()) {
-            System.out.println("La lista de cuentas está vacía.");
+        System.out.println("\n==========================================================================");
+        System.out.println("                LISTADO DE CUENTAS BANCARIAS - " + this.getBanco().getNombreBanco());
+        System.out.println("==========================================================================");
+
+        // 1. Validación de nulidad y lista vacía
+        if (cuentas == null || cuentas.isEmpty()) {
+            System.out.println("   [!] No hay cuentas registradas en el sistema actualmente.");
         } else {
-            for (CuentaBanco cuen: cuentas){
-                System.out.println(cuen.toString()); // AHORA SÍ SE IMPRIME
+            // 2. Encabezado de la tabla (usamos printf para alinear columnas)
+            // %-5s (ID 5 espacios), %-15s (CBU 15 espacios), %-15s (Tipo), %-12s (Saldo)
+            System.out.printf("%-5s | %-15s | %-15s | %-12s | %-10s %n",
+                    "ID", "CBU", "TIPO", "SALDO", "ESTADO");
+            System.out.println("--------------------------------------------------------------------------");
+
+            for (CuentaBanco cuen : cuentas) {
+                String estadoTexto = (cuen.getEstado() != null && cuen.getEstado()) ? "ACTIVA" : "INACTIVA";
+
+                System.out.printf("%-5d | %-15s | %-15s | $%-11.2f | %-10s %n",
+                        cuen.getId(),
+                        cuen.getCbu(),
+                        cuen.getTipoCuenta(),
+                        cuen.getSaldo(),
+                        estadoTexto);
             }
         }
+        System.out.println("==========================================================================\n");
     }
 
     //Creador y asignacion de cuentas
@@ -146,6 +164,34 @@ public class Admin  extends Usuarios implements CapacidadUserAdmin,CapacidadLogi
             }
         }
         return null;
+    }
+
+    @Override
+    public void verSucursal() {
+        System.out.println("\n==========================================================================");
+        System.out.println("                SUCURSALES DEL BANCO: " );//+ this.getBanco().getSucursales().toUpperCase()
+        System.out.println("==========================================================================");
+
+        if (this.getBanco().getSucursales() == null || this.getBanco().getSucursales().isEmpty()) {
+            System.out.println("   [!] El banco no tiene sucursales registradas.");
+        } else {
+            // Encabezado formateado
+            System.out.printf("%-5s | %-25s | %-25s | %-10s %n",
+                    "ID", "NOMBRE SUCURSAL", "DIRECCIÓN", "CANT. USERS");
+            System.out.println("--------------------------------------------------------------------------");
+
+            for (Sucursal sucu : this.getBanco().getSucursales()) {
+                // Obtenemos la cantidad de usuarios de la lista interna de la sucursal
+                int cantUsuarios = (sucu.getClientesSucursal() != null) ? sucu.getClientesSucursal().size() : 0;
+
+                System.out.printf("%-5d | %-25s | %-25s | %-10d %n",
+                        sucu.getId(),
+                        sucu.getNombreSucursal(),
+                        sucu.getDireccionSucursal(),
+                        cantUsuarios);
+            }
+        }
+        System.out.println("==========================================================================\n");
     }
 
     @Override
@@ -191,6 +237,10 @@ public class Admin  extends Usuarios implements CapacidadUserAdmin,CapacidadLogi
 
     @Override
     public void darBajaCuenta(int id) {
+        if (this.getSucursal() == null || this.getSucursal().getClientesSucursal() == null) {
+            System.out.println("[!] Error: No hay acceso a la base de datos de la sucursal.");
+            return;
+        }
         for (Usuarios cli : this.getSucursal().getClientesSucursal()) {
             if (cli.getCuentaBanco().getId() == id) {
                 if (cli.getCuentaBanco().getEstado()) { // Si está abierta (true)
@@ -342,32 +392,40 @@ public class Admin  extends Usuarios implements CapacidadUserAdmin,CapacidadLogi
 
     @Override
     public void crearCliente() {
-        Scanner escaner=new Scanner(System.in);
+        Scanner escaner = new Scanner(System.in);
+        System.out.println("\n--- Alta de Nuevo Cliente ---");
 
         System.out.println("Ingrese un id: ");
-        int idCliente=escaner.nextInt();
-        escaner.nextLine();
-        System.out.println("Ingrese el nombre del nuevo cliente");
-        String nombreCli=escaner.nextLine();
-        System.out.println("Ingrese el apellido del nuevo cliente :");
-        String apellidoCli=escaner.nextLine();
+        int id = escaner.nextInt();
+        escaner.nextLine(); // Limpiar buffer después de nextInt
+
+        System.out.println("Ingrese el nombre:");
+        String nombre = escaner.nextLine();
+
+        System.out.println("Ingrese el apellido:");
+        String apellido = escaner.nextLine();
+
         System.out.println("Ingrese su dni:");
-        int dniCli=escaner.nextInt();
-        escaner.nextLine();
+        int dni = escaner.nextInt();
+        escaner.nextLine(); // Limpiar buffer después de nextInt
+
         System.out.println("Ingrese su direccion: ");
-        String direccion=escaner.nextLine();
+        String direccion = escaner.nextLine();
+
         System.out.println("Ingrese su username: ");
-        String username=escaner.nextLine();
+        String username = escaner.nextLine();
+
         System.out.println("Ingrese su password: ");
-        String password=escaner.nextLine();
-        Banco bancoCli=new Banco(getBanco());
-        Sucursal sucuCli=new Sucursal(getSucursal());
+        String password = escaner.nextLine();
 
-        CuentaBanco cuentaBanco=new CuentaBanco();//Lo asigna el GestorCuentaBancos
+        // REFERENCIAS DIRECTAS: No crees copias con "new Banco(...)"
+        // Usamos el banco y sucursal donde trabaja este Admin
+        Cliente nuevo = new Cliente(id, nombre, apellido, dni, direccion, Rol.CLIENTE, username, password, this.getBanco(), this.getSucursal(), null);
 
-        Cliente nuevoCliente=new Cliente(idCliente,nombreCli,apellidoCli,dniCli,direccion,Rol.CLIENTE,nombreCli,apellidoCli,bancoCli,sucuCli,cuentaBanco);
+        // GUARDADO REAL: Agregarlo a la lista de la sucursal para que persista
+        this.getSucursal().getClientesSucursal().add(nuevo);
 
-        this.getSucursal().getClientesSucursal().add(nuevoCliente);
+        System.out.println("\n[!] Cliente '" + nombre + " " + apellido + "' creado y asignado a la sucursal: " + this.getSucursal().getNombreSucursal());
     }
 
     @Override

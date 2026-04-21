@@ -39,13 +39,36 @@ public class Cliente extends Usuarios implements CapacidadUserCliente, Capacidad
 
     @Override
     public void verMisDatos() {
-        System.out.println("Datos cliente: "+super.toString() +" \n");
-        System.out.println("Datos Cuenta cliente: "+this.getCuentaBanco().toString() +" \n");
+        System.out.println("\n============================================");
+        System.out.println("           PERFIL DEL CLIENTE");
+        System.out.println("============================================");
+
+        // 1. Datos personales (Usando los atributos de la superclase Usuarios)
+        System.out.println("Nombre Completo: " + this.getNombre() + " " + this.getApellido());
+        System.out.println("DNI:             " + this.getDni());
+        System.out.println("Dirección:       " + this.getDireccion());
+        System.out.println("Usuario:         " + this.getUsername());
+        System.out.println("--------------------------------------------");
+
+        // 2. Validación de la Cuenta Bancaria
+        if (this.getCuentaBanco() == null) {
+            System.out.println("ESTADO CUENTA:   [ SIN CUENTA ASIGNADA ]");
+            System.out.println("Nota: Por favor, contacte a un Gestor para abrir su cuenta.");
+        } else {
+            // Determinamos el estado visualmente
+            String estadoVisual = (this.getCuentaBanco().getEstado()) ? "ALTA (Activa)" : "BAJA (Bloqueada)";
+
+            System.out.println("CBU:             " + this.getCuentaBanco().getCbu());
+            System.out.println("TIPO:            " + this.getCuentaBanco().getTipoCuenta());
+            System.out.println("SALDO ACTUAL:    $" + String.format("%.2f", this.getCuentaBanco().getSaldo()));
+            System.out.println("ESTADO CUENTA:   " + estadoVisual);
+        }
+        System.out.println("============================================\n");
     }
 
     @Override
     public void extraer(float monto) {
-        if (!this.getCuentaBanco().getEstado()) {
+        if (this.getCuentaBanco() == null || !this.getCuentaBanco().getEstado()) {
             System.out.println("No se puede realizar la extraccion porque la cuenta no esta abierta");
             return;
         }
@@ -60,7 +83,7 @@ public class Cliente extends Usuarios implements CapacidadUserCliente, Capacidad
 
     @Override
     public void depositar(float monto) {
-        if (!this.getCuentaBanco().getEstado()) {
+        if (this.getCuentaBanco() == null || !this.getCuentaBanco().getEstado()) {
             System.out.println("No se puede realizar el deposito porque la cuenta no esta abierta");
             return; // Salimos del método inmediatamente
         }
@@ -77,7 +100,7 @@ public class Cliente extends Usuarios implements CapacidadUserCliente, Capacidad
 
     @Override
     public void transferir(float monto,String cbu) {
-        if (!this.getCuentaBanco().getEstado()) {
+        if (this.getCuentaBanco() == null || !this.getCuentaBanco().getEstado()) {
             System.out.println("No se puede realizar la transferencia porque la cuenta no esta abierta");
             return;
         }

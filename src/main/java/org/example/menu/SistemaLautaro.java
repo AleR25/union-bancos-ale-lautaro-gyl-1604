@@ -204,7 +204,8 @@ public class SistemaLautaro
                         System.out.println("12. Crear Cuenta bancaria");
                         System.out.println("13. Asignar Cuenta");
                         System.out.println("14. Ver Cuentas");
-                        System.out.println("15. Cerrar Sesion");
+                        System.out.println("15. Ver Sucursales");
+                        System.out.println("16. Cerrar Sesion");
                         System.out.println("0. Salir Total");
                         System.out.print("Opcion: ");
 
@@ -271,9 +272,11 @@ public class SistemaLautaro
                                 break;
                             case 14:
                                 ((Admin) userLogueado).verCuentas(cuentas);
-
                                 break;
-                            case 15:
+                            case 15://VerSucursal
+                                ((Admin) userLogueado).verSucursal();
+                                break;
+                            case 16:
                                 System.out.println("Cerrando sesion...");
                                 enSesion = false; // Corta este bucle y vuelve al login
                                 userLogueado = null; // Limpia el usuario
